@@ -6,9 +6,11 @@ public class GridControlScript : MonoBehaviour
 {
     //prefab for the hex that it will draw
     [SerializeField] private GameObject _HexPrefab;
+    [HideInInspector] public GameObject[,] HexGridArray;
+
 
     //width and height in hexes, nothing to do with unity coords
-    int gridWidth = 6;
+    int gridWidth = 5;
     int gridHeight = 5;
 
     float xOffset = 0.9f;
@@ -33,8 +35,17 @@ public class GridControlScript : MonoBehaviour
                 
                 GameObject hexInstance = (GameObject)Instantiate(_HexPrefab, new Vector2(xpos,ypos), Quaternion.identity); //creates and saves the hex that was just created
                 hexInstance.name = "Hex_" + i + "_" + j;
+                HexGridArray[i, j] = hexInstance;
             }
         }
+
+        //removes hexes that are not on the catan board
+        Destroy(GameObject.Find("Hex_0_0"));
+        Destroy(GameObject.Find("Hex_0_4"));
+        Destroy(GameObject.Find("Hex_4_0"));
+        Destroy(GameObject.Find("Hex_4_1"));
+        Destroy(GameObject.Find("Hex_4_3"));
+        Destroy(GameObject.Find("Hex_4_4"));
     }
 
     // Update is called once per frame
