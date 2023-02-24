@@ -8,15 +8,14 @@ public class GridControlScript : MonoBehaviour
     [SerializeField] private GameObject _HexPrefab;
     //prefab for the vertex it will draw
     [SerializeField] private GameObject _VertexPrefab;
+    //prefab for the edge of the hex
+    [SerializeField] private GameObject _EdgePrefab;
 
     //main storage and access to hexes
     [HideInInspector] public GameObject[,] HexGridArray;
 
     //uses vector3int as key to hold X Y and K coords of the Vertexes
     [HideInInspector] public Dictionary<Vector3Int, GameObject> VertexDict;
-
-    const float xOffset = 0.457f;
-    const float yOffset = 0.795f;
 
     //width and height in hexes, nothing to do with unity coords this needs to be large enough so all play hexes are surronded by other hexes
     const int gridWidth = 7;
@@ -42,6 +41,8 @@ public class GridControlScript : MonoBehaviour
     //Axial hex grid means that a column cascades down to the right
     private void drawGridAxial()
     {
+        const float xOffset = 0.457f;
+        const float yOffset = 0.795f;
         HexGridArray = new GameObject[gridWidth, gridHeight];
         for (int i = 0; i < gridWidth; i++)
         {

@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _HexPrefab: {fileID: 5427151536909400730, guid: 3ede2d3553cd73247af4fc72e344a69b, type: 3}
   _VertexPrefab: {fileID: 1751909026116537910, guid: e8553d4b9ba5a734988d8cba00840664, type: 3}
+  _EdgePrefab: {fileID: 3768857616990874498, guid: 4bd8a66197c53c54dbc5407883affa21, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
