@@ -33,10 +33,6 @@ public class GridControlScript : MonoBehaviour
         destroyExcessHexes();
         destroyExcessVertices();
         drawEdges();
-        GameObject edge = EdgeDict[(new Vector3Int(2, 2, 0), new Vector3Int(2, 2, 1))];
-        edge.name = "hello friend";
-        edge = EdgeDict[(new Vector3Int(2, 2, 1), new Vector3Int(2, 2, 0))];
-        edge.name = "hello enemy";
     }
 
     // Update is called once per frame
@@ -227,6 +223,7 @@ public class GridControlScript : MonoBehaviour
 
     private void drawEdges()
     {
+        //offsets used to align the position of the edges with the actual edges of the hex
         const float xOffset = 0.226f;
         const float yOffset = -0.108f;
 
@@ -254,13 +251,28 @@ public class GridControlScript : MonoBehaviour
                                 if (VertexDict.TryGetValue(adjVertexIDList[n], out otherVertex))
                                 {
                                     Debug.Log(rootVertex.name + " " + otherVertex.name);
+                                    //finds the midpoint between the vertices
                                     float edgeX = (rootVertex.transform.position.x + otherVertex.transform.position.x) / 2;
                                     float edgeY = (rootVertex.transform.position.y + otherVertex.transform.position.y) / 2;
                                     Vector2 edgeCreatePosition = new Vector2(edgeX + xOffset, edgeY + yOffset);
+
                                     GameObject edgeInstance = (GameObject)Instantiate(_EdgePrefab, edgeCreatePosition, Quaternion.identity);
                                     edgeInstance.transform.SetParent(this.gameObject.transform);
                                     EdgeDict.Add((new Vector3Int(i, j, k), adjVertexIDList[n]), edgeInstance);
                                     edgeInstance.name = (new Vector3Int(i, j, k) + "_" + adjVertexIDList[n]);
+
+                                    //set edge rotation
+                                    switch (n)
+                                    {
+                                        case 0:
+                                            edgeInstance.transform.rotation = Quaternion.Euler(0,0,-60);
+                                            break;
+                                        case 2:
+                                            edgeInstance.transform.rotation = Quaternion.Euler(0, 0, 60);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
                             }
                             else
