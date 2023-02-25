@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Hex
+    uniqueID: 3354616579
+    locked: 0
+  - name: HexEdge
+    uniqueID: 2227834543
+    locked: 0
+  - name: HexVertex
+    uniqueID: 112567615
+    locked: 0
