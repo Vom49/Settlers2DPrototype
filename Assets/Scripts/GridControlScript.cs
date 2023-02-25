@@ -12,10 +12,10 @@ public class GridControlScript : MonoBehaviour
     [SerializeField] private GameObject _EdgePrefab;
 
     //main storage and access to hexes
-    [HideInInspector] public GameObject[,] HexGridArray;
+    [HideInInspector] public static GameObject[,] HexGridArray;
 
     //uses vector3int as key to hold X Y and K coords of the Vertexes
-    [HideInInspector] public Dictionary<Vector3Int, GameObject> VertexDict;
+    [HideInInspector] public static Dictionary<Vector3Int, GameObject> VertexDict;
 
     //width and height in hexes, nothing to do with unity coords this needs to be large enough so all play hexes are surronded by other hexes
     const int gridWidth = 7;
@@ -29,6 +29,7 @@ public class GridControlScript : MonoBehaviour
         drawVertices();
         destroyExcessHexes();
         destroyExcessVertices();
+        drawEdges();
     }
 
     // Update is called once per frame
@@ -85,11 +86,16 @@ public class GridControlScript : MonoBehaviour
                 vertexInstance1.name = "Vertex_" + hexX + "_" + hexY + "_0"; //north vertex
                 vertexInstance1.transform.SetParent(this.gameObject.transform); //for readability in editor
                 VertexDict.Add(new Vector3Int(hexX, hexY, 0), vertexInstance1);
+                //Infrom the Vertex script of it's own ID used to increase runtime performance
+                vertexInstance1.GetComponent<VertexData>().VertexID = new Vector3Int(hexX, hexY, 0);
+
 
                 GameObject vertexInstance2 = (GameObject)Instantiate(_VertexPrefab, new Vector2(targetHex.transform.position.x + neVertexXOffset, targetHex.transform.position.y + neVertexYOffset), Quaternion.identity);
                 vertexInstance2.name = "Vertex_" + hexX + "_" + hexY + "_1"; //north east vertex
                 vertexInstance2.transform.SetParent(this.gameObject.transform); //for readability in editor
                 VertexDict.Add(new Vector3Int(hexX, hexY, 1), vertexInstance1);
+                //Infrom the Vertex script of it's own ID used to increase runtime performance
+                vertexInstance2.GetComponent<VertexData>().VertexID = new Vector3Int(hexX, hexY, 1);
             }
         }
     }
@@ -211,5 +217,19 @@ public class GridControlScript : MonoBehaviour
         Destroy(GameObject.Find("Vertex_3_6_1"));
         VertexDict.Remove(new Vector3Int(3, 6, 1));
     }
-    
+
+    private void drawEdges()
+    {
+        //to make an easily loopable list
+        List<GameObject> listOfVertices = new List<GameObject>();
+        int listIndex = 0;
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                listOfVertices[listIndex] = VertexDict[new Vector3Int(i, j, 0)];
+            }
+        }
+
+    }
 }
