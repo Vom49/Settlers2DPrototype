@@ -17,6 +17,9 @@ public class GridControlScript : MonoBehaviour
     //uses vector3int as key to hold X Y and K coords of the Vertexes
     [HideInInspector] public static Dictionary<Vector3Int, GameObject> VertexDict;
 
+    //holds a pair of vertex coords to identify the edge
+    [HideInInspector] public static Dictionary<(Vector3Int, Vector3Int), GameObject> EdgeDict;
+
     //width and height in hexes, nothing to do with unity coords this needs to be large enough so all play hexes are surronded by other hexes
     const int gridWidth = 7;
     const int gridHeight = 7;
@@ -30,6 +33,10 @@ public class GridControlScript : MonoBehaviour
         destroyExcessHexes();
         destroyExcessVertices();
         drawEdges();
+        GameObject edge = EdgeDict[(new Vector3Int(2, 2, 0), new Vector3Int(2, 2, 1))];
+        edge.name = "hello friend";
+        edge = EdgeDict[(new Vector3Int(2, 2, 1), new Vector3Int(2, 2, 0))];
+        edge.name = "hello enemy";
     }
 
     // Update is called once per frame
@@ -220,16 +227,71 @@ public class GridControlScript : MonoBehaviour
 
     private void drawEdges()
     {
-        //to make an easily loopable list
-        List<GameObject> listOfVertices = new List<GameObject>();
-        int listIndex = 0;
+        const float xOffset = 0.226f;
+        const float yOffset = -0.108f;
+
+        //define dict for edges
+        EdgeDict = new Dictionary<(Vector3Int, Vector3Int), GameObject>();
         for (int i = 0; i < gridWidth; i++)
         {
             for (int j = 0; j < gridHeight; j++)
             {
-                listOfVertices[listIndex] = VertexDict[new Vector3Int(i, j, 0)];
+                //this should not require different code for vertices with different k values
+                for(int k = 0; k < 1; k++)
+                {
+                    GameObject rootVertex;
+                    if (VertexDict.TryGetValue(new Vector3Int(i, j, k), out rootVertex))
+                    {
+                        //this gets the vertex data script and runs the method Find Adjacent Vertices, returning the IDs of the vertices adjacent
+                        List<Vector3Int> adjVertexIDList = rootVertex.GetComponent<VertexData>().FindAdjacentVertices();
+                        //in a hex grid it will always have up to 3 adjencent vertices
+                        for(int n = 0; n < 3; n++)
+                        {
+                            //if the edge does not already exist
+                            if (getEdge(new Vector3Int(i,j,k), adjVertexIDList[n]) == null)
+                            {
+                                GameObject otherVertex;
+                                if (VertexDict.TryGetValue(adjVertexIDList[n], out otherVertex))
+                                {
+                                    Debug.Log(rootVertex.name + " " + otherVertex.name);
+                                    float edgeX = (rootVertex.transform.position.x + otherVertex.transform.position.x) / 2;
+                                    float edgeY = (rootVertex.transform.position.y + otherVertex.transform.position.y) / 2;
+                                    Vector2 edgeCreatePosition = new Vector2(edgeX + xOffset, edgeY + yOffset);
+                                    GameObject edgeInstance = (GameObject)Instantiate(_EdgePrefab, edgeCreatePosition, Quaternion.identity);
+                                    edgeInstance.transform.SetParent(this.gameObject.transform);
+                                    EdgeDict.Add((new Vector3Int(i, j, k), adjVertexIDList[n]), edgeInstance);
+                                    edgeInstance.name = (new Vector3Int(i, j, k) + "_" + adjVertexIDList[n]);
+                                }
+                            }
+                            else
+                            {
+                                Debug.Log("edge creation skipped");
+                            }
+                        }
+                    }
+                } 
             }
         }
+    }
 
+    //gets edge from the dictonary, this ensures that no duplicates are made
+    public GameObject getEdge(Vector3Int edge1ID, Vector3Int edge2ID)
+    {
+        GameObject edge;
+        if(EdgeDict.TryGetValue((edge1ID, edge2ID), out edge))
+        {
+            Debug.Log("get edge exists");
+            return (edge);
+        }
+        else if(EdgeDict.TryGetValue((edge2ID, edge1ID), out edge))
+        {
+            Debug.Log("get edge exists");
+            return (edge);
+        }
+        else
+        {
+            Debug.Log("get edge null");
+            return (null);
+        }
     }
 }
