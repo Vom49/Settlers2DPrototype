@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VertexData : MonoBehaviour
 {
     //the ID of this vertex, set as -1 -1 -1 as a default, this is changed when it is instaciated
-    [HideInInspector] public Vector3Int VertexID = new Vector3Int(-1, -1, -1); 
+    [HideInInspector] public Vector3Int VertexID = new Vector3Int(-1, -1, -1);
 
+    [SerializeField] private Button buildButton;
+
+    //player infomation
     public List<Vector3Int> FindAdjacentVertices()
     {
         List<Vector3Int> AdjacentVertices = new List<Vector3Int>();
@@ -32,5 +36,12 @@ public class VertexData : MonoBehaviour
             Debug.Log(this.gameObject.name + " has error, K is out of scope");
         }
         return (AdjacentVertices);
+    }
+
+    //update function to enable or disable the button
+
+    public void Click()
+    {
+
     }
 }
