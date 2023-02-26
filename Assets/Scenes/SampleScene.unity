@@ -148,7 +148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286025521}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.01, y: 2.39, z: 0}
+  m_LocalPosition: {x: -8, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,6 +170,7 @@ MonoBehaviour:
   _HexPrefab: {fileID: 5427151536909400730, guid: 3ede2d3553cd73247af4fc72e344a69b, type: 3}
   _VertexPrefab: {fileID: 1751909026116537910, guid: e8553d4b9ba5a734988d8cba00840664, type: 3}
   _EdgePrefab: {fileID: 3768857616990874498, guid: 4bd8a66197c53c54dbc5407883affa21, type: 3}
+  premadeBoard: 1
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

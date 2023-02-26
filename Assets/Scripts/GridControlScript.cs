@@ -11,6 +11,9 @@ public class GridControlScript : MonoBehaviour
     //prefab for the edge of the hex
     [SerializeField] private GameObject _EdgePrefab;
 
+    //generate the premade catan board
+    [SerializeField] private bool premadeBoard;
+
     //main storage and access to hexes
     [HideInInspector] public static GameObject[,] HexGridArray;
 
@@ -33,6 +36,10 @@ public class GridControlScript : MonoBehaviour
         destroyExcessHexes();
         destroyExcessVertices();
         drawEdges();
+        assignResourcesAndNums();
+
+        //adjusts the scale of the grid
+        transform.localScale += new Vector3(1f, 1f, 0f);
     }
 
     // Update is called once per frame
@@ -61,6 +68,8 @@ public class GridControlScript : MonoBehaviour
 
                 hexInstance.name = "Hex_" + i + "_" + j;
                 HexGridArray[i, j] = hexInstance;
+                HexGridArray[i, j].GetComponent<HexData>().myX = i;
+                HexGridArray[i, j].GetComponent<HexData>().myY = j;
             }
         }
 
@@ -250,7 +259,6 @@ public class GridControlScript : MonoBehaviour
                                 GameObject otherVertex;
                                 if (VertexDict.TryGetValue(adjVertexIDList[n], out otherVertex))
                                 {
-                                    Debug.Log(rootVertex.name + " " + otherVertex.name);
                                     //finds the midpoint between the vertices
                                     float edgeX = (rootVertex.transform.position.x + otherVertex.transform.position.x) / 2;
                                     float edgeY = (rootVertex.transform.position.y + otherVertex.transform.position.y) / 2;
@@ -292,18 +300,96 @@ public class GridControlScript : MonoBehaviour
         GameObject edge;
         if(EdgeDict.TryGetValue((edge1ID, edge2ID), out edge))
         {
-            Debug.Log("get edge exists");
             return (edge);
         }
         else if(EdgeDict.TryGetValue((edge2ID, edge1ID), out edge))
         {
-            Debug.Log("get edge exists");
             return (edge);
         }
         else
         {
-            Debug.Log("get edge null");
             return (null);
+        }
+    }
+
+    private void assignResourcesAndNums()
+    {
+        Resources[,] hexResources = new Resources[gridWidth, gridHeight];
+        int[,] hexNum = new int[gridWidth, gridHeight];
+
+        //make a function to generate contents of arrays
+
+        //this sets up the board as it appears in the rulebook
+        if (premadeBoard == true)
+        {
+            hexResources[3, 1] = Resources.Ore;
+            hexNum[3, 1] = 10;
+
+            hexResources[4, 1] = Resources.Sheep;
+            hexNum[4, 1] = 2;
+
+            hexResources[5, 1] = Resources.Lumber;
+            hexNum[5, 1] = 9;
+
+            hexResources[2, 2] = Resources.Grain;
+            hexNum[2, 2] = 12;
+
+            hexResources[3, 2] = Resources.Brick;
+            hexNum[3, 2] = 6;
+
+            hexResources[4, 2] = Resources.Sheep;
+            hexNum[4, 2] = 4;
+
+            hexResources[5, 2] = Resources.Brick;
+            hexNum[5, 2] = 10;
+
+            hexResources[1, 3] = Resources.Grain;
+            hexNum[1, 3] = 9;
+
+            hexResources[2, 3] = Resources.Lumber;
+            hexNum[2, 3] = 11;
+
+            //desert hex
+            hexResources[3, 3] = Resources.Nothing;
+            hexNum[3, 3] = 0;
+
+            hexResources[4, 3] = Resources.Lumber;
+            hexNum[4, 3] = 3;
+
+            hexResources[5, 3] = Resources.Ore;
+            hexNum[5, 3] = 8;
+
+            hexResources[1, 4] = Resources.Lumber;
+            hexNum[1, 4] = 8;
+
+            hexResources[2, 4] = Resources.Ore;
+            hexNum[2, 4] = 3;
+
+            hexResources[3, 4] = Resources.Grain;
+            hexNum[3, 4] = 4;
+
+            hexResources[4, 4] = Resources.Sheep;
+            hexNum[4, 4] = 5;
+
+            hexResources[1, 5] = Resources.Brick;
+            hexNum[1, 5] = 5;
+
+            hexResources[2, 5] = Resources.Grain;
+            hexNum[2, 5] = 6;
+
+            hexResources[3, 5] = Resources.Sheep;
+            hexNum[3, 5] = 11;
+
+        }
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                if (HexGridArray[i,j] != null)
+                {
+                    HexGridArray[i, j].GetComponent<HexData>().AssignHexData(hexResources[i, j], hexNum[i, j]);
+                }
+            }
         }
     }
 }
