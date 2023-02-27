@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class TurnControllerScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static int activePlayer;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField] int maxPlayers;
+
+    private void Start()
     {
-        
+        //playerNames = new string[maxPlayers];
+    }
+    void PassPlayerTurn()
+    {
+        activePlayer++;
+        if (activePlayer > maxPlayers)
+        {
+            activePlayer = 1;
+        }
     }
 }
