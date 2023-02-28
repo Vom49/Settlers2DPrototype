@@ -43,26 +43,42 @@ public class VertexData : MonoBehaviour
     }
 
     //update function to enable or disable the button
-
+    private void Update()
+    {
+        EnableDisableButton();
+    }
     public void ClickBuildButton()
     {
-
+        buildingValue++;
     }
 
+    private void EnableDisableButton()
+    {
+        if (EnableButtonCheck() == true)
+        {
+            _buildButton.interactable = true;
+            _buildButton.enabled = true;
+        }
+        else
+        {
+            _buildButton.interactable = false;
+            _buildButton.enabled = false;
+        }
+    }
     //checks wether the build button should be clickable
-    private void EnableButtonCheck()
+    private bool EnableButtonCheck()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         //if we're in the build step
         if (tControl.GetTurnStep() == 3)
         {
-            if ((buildingValue == 1) && (ownerPlayer == tControl.GetActivePlayer()))
+            if ((buildingValue == 1) && (ownerPlayer == tControl.GetActivePlayer())) //will only activate for building a city
             {
-
+                return (true);
             }
-            else if (HasNoRoadOrVillageBlocks() == true)
+            else if ((HasNoVillageBlocks() == true) && (HasAdjacentOwnedRoad() == true)) //building village
             {
-
+                return (true);
             }
             //and current player has the resources
         }
@@ -72,9 +88,30 @@ public class VertexData : MonoBehaviour
 
         //and this is a village owned by that player
         //or there is no village on the immediate edge
+        return (true);
     }
 
-    private bool HasNoRoadOrVillageBlocks()
+    private bool HasNoVillageBlocks()
+    {
+        List<Vector3Int> AdjacentVertices = FindAdjacentVertices();
+        GameObject gController = GameObject.Find("GridController");
+        for (int i = 0; i < 2; i++)
+        {
+            if (gController.GetComponent<GridControlScript>().GetVertex(AdjacentVertices[i]) != null)
+            {
+                //check the building value of that vertex
+                if (gController.GetComponent<GridControlScript>().GetVertex(AdjacentVertices[i]).GetComponent<VertexData>().buildingValue > 0)
+                {
+                    Debug.Log("village block");
+                    return (false);
+                }
+            }
+        }
+        //returns true if it does not return false
+        return (true);
+    }
+
+    private bool HasAdjacentOwnedRoad()
     {
         return (true);
     }

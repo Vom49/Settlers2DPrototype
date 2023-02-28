@@ -312,6 +312,18 @@ public class GridControlScript : MonoBehaviour
         }
     }
 
+    public GameObject GetVertex(Vector3Int vertexID)
+    {
+        GameObject outputVertex;
+        if (VertexDict.TryGetValue(vertexID, out outputVertex))
+        {
+            return (outputVertex);
+        }
+        else
+        {
+            return (null);
+        }
+    }
     private void assignResourcesAndNums()
     {
         Resources[,] hexResources = new Resources[gridWidth, gridHeight];

@@ -6,7 +6,7 @@ public class TurnControllerScript : MonoBehaviour
 {
     public static int activePlayer = 1;
 
-    private int turnStep = 0;
+    private int turnStep = 3;
 
     [SerializeField] int _maxPlayers;
 
