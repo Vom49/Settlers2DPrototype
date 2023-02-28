@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 1751909026166037196}
   - component: {fileID: 1751909026166037199}
   m_Layer: 0
-  m_Name: Triangle
+  m_Name: VilliageSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

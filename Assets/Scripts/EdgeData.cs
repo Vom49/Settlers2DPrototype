@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class EdgeData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int ownerPlayer = 0;
+    public bool roadBuilt = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

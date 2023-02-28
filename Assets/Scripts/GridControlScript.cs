@@ -270,13 +270,14 @@ public class GridControlScript : MonoBehaviour
                                     edgeInstance.name = (new Vector3Int(i, j, k) + "_" + adjVertexIDList[n]);
 
                                     //set edge rotation
+                                    GameObject edgeSprite = edgeInstance.GetComponentInChildren<SpriteRenderer>().gameObject;
                                     switch (n)
                                     {
                                         case 0:
-                                            edgeInstance.transform.rotation = Quaternion.Euler(0,0,-60);
+                                            edgeSprite.transform.rotation = Quaternion.Euler(0,0,-60);
                                             break;
                                         case 2:
-                                            edgeInstance.transform.rotation = Quaternion.Euler(0, 0, 60);
+                                            edgeSprite.transform.rotation = Quaternion.Euler(0, 0, 60);
                                             break;
                                         default:
                                             break;
