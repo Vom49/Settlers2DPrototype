@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class TurnControllerScript : MonoBehaviour
 {
-    public static int activePlayer;
+    public static int activePlayer = 1;
 
-    [SerializeField] int maxPlayers;
+    private int turnStep = 0;
+
+    [SerializeField] int _maxPlayers;
 
     private void Start()
     {
@@ -15,9 +17,19 @@ public class TurnControllerScript : MonoBehaviour
     void PassPlayerTurn()
     {
         activePlayer++;
-        if (activePlayer > maxPlayers)
+        if (activePlayer > _maxPlayers)
         {
             activePlayer = 1;
         }
+    }
+
+    public int GetTurnStep()
+    {
+        return (turnStep);
+    }
+
+    public int GetActivePlayer()
+    {
+        return (activePlayer);
     }
 }

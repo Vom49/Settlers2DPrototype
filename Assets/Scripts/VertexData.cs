@@ -8,7 +8,11 @@ public class VertexData : MonoBehaviour
     //the ID of this vertex, set as -1 -1 -1 as a default, this is changed when it is instaciated
     [HideInInspector] public Vector3Int VertexID = new Vector3Int(-1, -1, -1);
 
-    [SerializeField] private Button buildButton;
+    public int buildingValue = 0; //value of the building, no building is 0, village is 1, city is 2
+    public int ownerPlayer = 0; //when a building is built this value changes to reflect who owns that building
+
+    [SerializeField] private Button _buildButton;
+
 
     //player infomation
     public List<Vector3Int> FindAdjacentVertices()
@@ -40,8 +44,38 @@ public class VertexData : MonoBehaviour
 
     //update function to enable or disable the button
 
-    public void Click()
+    public void ClickBuildButton()
     {
 
+    }
+
+    //checks wether the build button should be clickable
+    private void EnableButtonCheck()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        //if we're in the build step
+        if (tControl.GetTurnStep() == 3)
+        {
+            if ((buildingValue == 1) && (ownerPlayer == tControl.GetActivePlayer()))
+            {
+
+            }
+            else if (HasNoRoadOrVillageBlocks() == true)
+            {
+
+            }
+            //and current player has the resources
+        }
+        //and current player has the resources
+
+        //or start of game
+
+        //and this is a village owned by that player
+        //or there is no village on the immediate edge
+    }
+
+    private bool HasNoRoadOrVillageBlocks()
+    {
+        return (true);
     }
 }

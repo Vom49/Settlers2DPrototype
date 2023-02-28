@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 7251184696432246792}
         m_TargetAssemblyTypeName: VertexData, Assembly-CSharp
-        m_MethodName: Click
+        m_MethodName: ClickBuildButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -180,7 +180,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VertexID: {x: -1, y: -1, z: -1}
-  buildButton: {fileID: 5072972557668716375}
+  buildingValue: 0
+  ownerPlayer: 0
+  _buildButton: {fileID: 5072972557668716375}
 --- !u!1 &1751909026166037197
 GameObject:
   m_ObjectHideFlags: 0
