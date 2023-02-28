@@ -18,7 +18,7 @@ public class GridControlScript : MonoBehaviour
     [HideInInspector] public static GameObject[,] HexGridArray;
 
     //uses vector3int as key to hold X Y and K coords of the Vertexes
-    [HideInInspector] public static Dictionary<Vector3Int, GameObject> VertexDict;
+    [HideInInspector] private static Dictionary<Vector3Int, GameObject> VertexDict;
 
     //holds a pair of vertex coords to identify the edge
     [HideInInspector] public static Dictionary<(Vector3Int, Vector3Int), GameObject> EdgeDict;
@@ -317,6 +317,7 @@ public class GridControlScript : MonoBehaviour
         GameObject outputVertex;
         if (VertexDict.TryGetValue(vertexID, out outputVertex))
         {
+            outputVertex = GameObject.Find("Vertex_" + vertexID.x + "_" + vertexID.y + "_" + vertexID.z);
             return (outputVertex);
         }
         else
