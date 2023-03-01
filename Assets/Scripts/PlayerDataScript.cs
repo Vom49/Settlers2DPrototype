@@ -33,5 +33,23 @@ public class PlayerDataScript : MonoBehaviour
     public void EditResourceAmount(Resources tResource, int changeAmount)
     {
         ResourceDict[tResource] = ResourceDict[tResource] + changeAmount;
+        switch (tResource)
+        {
+            case Resources.Brick:
+                _BrickCounter.text = ResourceDict[tResource].ToString();
+                break;
+            case Resources.Lumber:
+                _LumberCounter.text = ResourceDict[tResource].ToString();
+                break;
+            case Resources.Ore:
+                _OreCounter.text = ResourceDict[tResource].ToString();
+                break;
+            case Resources.Grain:
+                _GrainCounter.text = ResourceDict[tResource].ToString();
+                break;
+            case Resources.Sheep:
+                _SheepCounter.text = ResourceDict[tResource].ToString();
+                break;
+        }
     }
 }
