@@ -15,15 +15,19 @@ public class PlayerControllerScript : MonoBehaviour
     {
         maxPlayers = GameObject.Find("TurnController").GetComponent<TurnControllerScript>()._maxPlayers;
         playerObjs = new GameObject[maxPlayers + 1];
+        float yOffset = -1.9f;
+        /*
         playerNames[1] = "Tim";
         playerNames[2] = "Jim";
         playerNames[3] = "Bim";
         playerNames[4] = "Lim";
+        */
         //create the player objects
         for (int i = 1; i <= maxPlayers; i++)
         {
-            GameObject playerInstance = (GameObject)Instantiate(_PlayerPrefab,transform.position ,Quaternion.identity);
+            GameObject playerInstance = (GameObject)Instantiate(_PlayerPrefab, transform.position ,Quaternion.identity);
             playerInstance.transform.SetParent(this.gameObject.transform);
+            playerInstance.transform.position = new Vector2(transform.position.x, transform.position.y + (yOffset * (i-1)));
             playerInstance.name = ("Player_" + i);
             playerObjs[i] = playerInstance;
         }
