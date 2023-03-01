@@ -130,6 +130,7 @@ public class VertexData : MonoBehaviour
 
     private bool HasAdjacentOwnedRoad()
     {
+        //check adjecents and check edges
         return (true);
     }
 }
