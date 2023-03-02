@@ -547,6 +547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01faeef1ee9007469f4294629b862e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  turnStep: -1
   _maxPlayers: 4
 --- !u!1 &2080399204
 GameObject:

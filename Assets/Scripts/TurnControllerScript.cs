@@ -6,7 +6,7 @@ public class TurnControllerScript : MonoBehaviour
 {
     public static int activePlayer = 1;
 
-    private int turnStep = 3;
+    public int turnStep;
 
     public int _maxPlayers;
 

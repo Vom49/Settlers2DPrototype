@@ -85,12 +85,12 @@ public class VertexData : MonoBehaviour
             if ((buildingValue == 1) && (ownerPlayer == tControl.GetActivePlayer())) //will only activate for building a city
             {
                 Debug.Log("city build");
-                //and current player has the resources
+                //TODO and current player has the resources
                 return (true);
             }
-            else if ((HasAdjacentOwnedRoad() == true) && (buildingBlock == false) && buildingValue == 0) //building village
+            else if ((CheckAdjacentOwnedRoad(null, null) == true) && (buildingBlock == false) && buildingValue == 0) //building village
             {
-                //and current player has the resources
+                //TODO and current player has the resources
                 return (true);
             }
             //and current player has the resources
@@ -102,8 +102,6 @@ public class VertexData : MonoBehaviour
                 return (true);
             }
         }
-        
-
         //or start of game
 
         //and this is a village owned by that player
@@ -128,9 +126,40 @@ public class VertexData : MonoBehaviour
         }
     }
 
-    private bool HasAdjacentOwnedRoad()
+    private bool CheckResourcesAvailable()
     {
-        //check adjecents and check edges
         return (true);
+    }
+
+    //checks if it has an Adjacent road owned by the active player, has optional parameters for a road to exclude from the check
+    public bool CheckAdjacentOwnedRoad(Vector3Int? exclusionRoadVector1, Vector3Int? exclusionRoadVector2)
+    {
+        List<Vector3Int> AdjacentVertices = FindAdjacentVertices();
+        GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            GameObject targetEdge = gControl.getEdge(AdjacentVertices[i], VertexID);
+            if (targetEdge != null)
+            {
+                //if this edge is the exclusion edge then do nothing if not follow else
+                if ((exclusionRoadVector1 != null && exclusionRoadVector2 != null) && (gControl.getEdge(exclusionRoadVector1.GetValueOrDefault(), exclusionRoadVector2.GetValueOrDefault()) == targetEdge))
+                {
+                    //this is used to skip the owner check if this edge is the one that is excluded from the check
+                }
+                else
+                {
+                    //if this edge exists but is not the exlusion edge
+                    if(targetEdge.GetComponent<EdgeData>().CheckOwningPlayer() == tControl.GetActivePlayer())
+                    {
+                        Debug.Log("edge owned");
+                        return (true);
+                    }
+                }
+            }
+        }
+        //if it goes through the whole for loop without finding an adjencent owned edge that is not the exlusion edge
+        return (false);
     }
 }
