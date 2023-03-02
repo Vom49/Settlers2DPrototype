@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnControllerScript : MonoBehaviour
 {
-    public static int activePlayer = 1;
+    public int activePlayer = 1;
 
     public int turnStep;
 

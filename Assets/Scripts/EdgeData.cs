@@ -87,7 +87,6 @@ public class EdgeData : MonoBehaviour
         }
         else if ((vertex1Data.CheckAdjacentOwnedRoad(vertex1, vertex2) == true) || (vertex2Data.CheckAdjacentOwnedRoad(vertex1, vertex2) == true)) //check it's adjencent edges, with this edge as an exclusion
         {
-            Debug.Log("Adjacent road");
             return (true);
         }
         else
