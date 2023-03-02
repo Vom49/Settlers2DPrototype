@@ -268,6 +268,8 @@ public class GridControlScript : MonoBehaviour
                                     edgeInstance.transform.SetParent(this.gameObject.transform);
                                     EdgeDict.Add((new Vector3Int(i, j, k), adjVertexIDList[n]), edgeInstance);
                                     edgeInstance.name = (new Vector3Int(i, j, k) + "_" + adjVertexIDList[n]);
+                                    edgeInstance.GetComponent<EdgeData>().vertex1 = new Vector3Int(i, j, k);
+                                    edgeInstance.GetComponent<EdgeData>().vertex2 = adjVertexIDList[n];
 
                                     //set edge rotation
                                     GameObject edgeSprite = edgeInstance.GetComponentInChildren<SpriteRenderer>().gameObject;

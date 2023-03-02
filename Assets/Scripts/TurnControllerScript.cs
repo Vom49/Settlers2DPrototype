@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TurnControllerScript : MonoBehaviour
 {
-    public static int activePlayer = 1;
+    public int activePlayer = 1;
 
-    private int turnStep = 3;
+    public int turnStep;
 
-    [SerializeField] int _maxPlayers;
+    public int _maxPlayers;
 
     private void Start()
     {

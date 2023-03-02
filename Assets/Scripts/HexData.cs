@@ -56,7 +56,7 @@ public class HexData : MonoBehaviour
                 hexSpriteRenderer.color = new Color(162 / 255f, 190 / 255f, 190 / 255f);
                 break;
             case Resources.Grain:
-                hexSpriteRenderer.color = new Color(225 / 255f, 215 / 255f, 25 / 255f);
+                hexSpriteRenderer.color = new Color(225 / 255f, 185 / 255f, 25 / 255f);
                 break;
             case Resources.Sheep:
                 hexSpriteRenderer.color = new Color(110 / 255f, 200 / 255f, 45 / 255f);
