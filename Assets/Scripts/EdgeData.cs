@@ -22,6 +22,7 @@ public class EdgeData : MonoBehaviour
         Debug.Log("Button " + vertex1 + " " + vertex2);
         roadBuilt = true;
         ownerPlayer = tControl.GetActivePlayer();
+        tControl.MoveTurnAlong();
     }
 
     private void EnableDisableButton()

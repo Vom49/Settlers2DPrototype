@@ -33,6 +33,8 @@ public class VertexData : MonoBehaviour
         buildingValue++;
         ownerPlayer = GameObject.Find("TurnController").GetComponent<TurnControllerScript>().GetActivePlayer();
         PreventAdjacentVillages();
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        tControl.MoveTurnAlong();
     }
 
     public List<Vector3Int> FindAdjacentVertices()
