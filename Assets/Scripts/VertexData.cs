@@ -29,11 +29,14 @@ public class VertexData : MonoBehaviour
     }
     public void ClickBuildButton()
     {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         Debug.Log("click " + VertexID);
         buildingValue++;
-        ownerPlayer = GameObject.Find("TurnController").GetComponent<TurnControllerScript>().GetActivePlayer();
+        ownerPlayer = tControl.GetActivePlayer();
         PreventAdjacentVillages();
-        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        //add 1 victory point, as village is worth 1 and a city is worth 1 addiontal point
+        pControl.EditPlayerResource(ownerPlayer, Resources.VictoryPoints, 1);
         tControl.MoveTurnAlong();
     }
 
@@ -81,19 +84,27 @@ public class VertexData : MonoBehaviour
     private bool EnableButtonCheck()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        int activePlayer = tControl.GetActivePlayer();
         //if we're in the build step
         if (tControl.GetTurnStep() == 3)
         {
-            if ((buildingValue == 1) && (ownerPlayer == tControl.GetActivePlayer())) //will only activate for building a city
+            if ((buildingValue == 1) && (ownerPlayer == activePlayer)) //will only activate for building a city
             {
                 Debug.Log("city build");
-                //TODO and current player has the resources
-                return (true);
+                //current player has the resources
+                if ((pControl.GetPlayerResource(activePlayer, Resources.Ore) >= 3) && (pControl.GetPlayerResource(activePlayer, Resources.Grain) >= 2))
+                {
+                    return (true);
+                }
             }
             else if ((CheckAdjacentOwnedRoad(null, null) == true) && (buildingBlock == false) && buildingValue == 0) //building village
             {
-                //TODO and current player has the resources
-                return (true);
+                //current player has the resources
+                if ((pControl.GetPlayerResource(activePlayer, Resources.Brick) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Grain) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Sheep) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Lumber) >= 1))
+                {
+                    return (true);
+                }
             }
             //and current player has the resources
         }
@@ -104,10 +115,6 @@ public class VertexData : MonoBehaviour
                 return (true);
             }
         }
-        //or start of game
-
-        //and this is a village owned by that player
-        //or there is no village on the immediate edge
         return (false);
     }
 

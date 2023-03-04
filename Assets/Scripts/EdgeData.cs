@@ -64,7 +64,17 @@ public class EdgeData : MonoBehaviour
 
     private bool CheckResourcesAvailable()
     {
-        return (true);
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        int activePlayer = tControl.GetActivePlayer();
+        if ((pControl.GetPlayerResource(activePlayer, Resources.Brick) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Lumber) >= 1))
+        {
+            return (true);
+        }
+        else
+        {
+            return (false);
+        }
     }
 
     //returns the int id of the player who owns the road, 0 if not owned
