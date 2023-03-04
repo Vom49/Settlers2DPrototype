@@ -12,6 +12,7 @@ public class PlayerDataScript : MonoBehaviour
     [SerializeField] TMP_Text _OreCounter;
     [SerializeField] TMP_Text _GrainCounter;
     [SerializeField] TMP_Text _SheepCounter;
+    [SerializeField] TMP_Text _VPCounter;
 
     //lookup for the resource counts
     private Dictionary<Resources, int> ResourceDict = new Dictionary<Resources, int>();
@@ -23,6 +24,7 @@ public class PlayerDataScript : MonoBehaviour
         ResourceDict.Add(Resources.Ore, 0);
         ResourceDict.Add(Resources.Grain, 0);
         ResourceDict.Add(Resources.Sheep, 0);
+        ResourceDict.Add(Resources.VictoryPoints, 0);
     }
     public int FindResourceAmount(Resources tResource)
     {
@@ -49,6 +51,9 @@ public class PlayerDataScript : MonoBehaviour
                 break;
             case Resources.Sheep:
                 _SheepCounter.text = ResourceDict[tResource].ToString();
+                break;
+            case Resources.VictoryPoints:
+                _VPCounter.text = ResourceDict[tResource].ToString();
                 break;
         }
     }

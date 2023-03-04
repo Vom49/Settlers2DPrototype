@@ -10,7 +10,8 @@ public enum Resources
     Lumber,
     Ore,
     Grain,
-    Sheep
+    Sheep,
+    VictoryPoints
 }
 
 public class HexData : MonoBehaviour

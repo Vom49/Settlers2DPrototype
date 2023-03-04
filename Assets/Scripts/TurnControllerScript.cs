@@ -16,6 +16,7 @@ public class TurnControllerScript : MonoBehaviour
     }
     void PassPlayerTurn()
     {
+        //check for win
         activePlayer++;
         if (activePlayer > _maxPlayers)
         {
@@ -31,5 +32,14 @@ public class TurnControllerScript : MonoBehaviour
     public int GetActivePlayer()
     {
         return (activePlayer);
+    }
+
+    private void MoveTurnAlong()
+    {
+        //setup
+        //-1, 0 for player 1, then 2 then 3 then 4, repeat
+        //proper turn
+
+        //incremend through steps
     }
 }
