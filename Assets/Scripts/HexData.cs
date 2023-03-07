@@ -20,6 +20,7 @@ public class HexData : MonoBehaviour
     public int myY;
     public Resources ProducedResource = Resources.Nothing;
     public int outputNumber = 0;
+    public bool isRobbed = false;
 
     [SerializeField] private TMP_Text outputNumText;
     [SerializeField] private SpriteRenderer hexSpriteRenderer;
@@ -67,5 +68,38 @@ public class HexData : MonoBehaviour
                 break;
         }
         
+    }
+
+    private List<Vector3Int> GetSurrondingVertices()
+    {
+        List<Vector3Int> SurrondingVertices = new List<Vector3Int>();
+        SurrondingVertices.Add(new Vector3Int(myX, myY, 0));
+        SurrondingVertices.Add(new Vector3Int(myX, myY, 1));
+
+        SurrondingVertices.Add(new Vector3Int(myX, myY + 1, 0));
+        SurrondingVertices.Add(new Vector3Int(myX -1, myY+ 1, 1));
+
+        SurrondingVertices.Add(new Vector3Int(myX -1, myY + 1, 0));
+        SurrondingVertices.Add(new Vector3Int(myX -1, myY, 1));
+        return (SurrondingVertices);
+    }
+
+    public void DistributeResources()
+    {
+        if (!isRobbed) //avoids the check if the the hex has a robber
+        {
+            GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
+            PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+            List<Vector3Int> SurrondingVertices = GetSurrondingVertices();
+            for (int i = 0; i < 6; i++)
+            {
+                GameObject currentVertex = gControl.GetVertex(SurrondingVertices[i]);
+                VertexData currentVertexData = currentVertex.GetComponent<VertexData>();
+                if (currentVertexData.ownerPlayer != 0) //if it has an owner
+                {
+                    pControl.EditPlayerResource(currentVertexData.ownerPlayer, ProducedResource, currentVertexData.buildingValue);
+                }
+            }
+        }
     }
 }
