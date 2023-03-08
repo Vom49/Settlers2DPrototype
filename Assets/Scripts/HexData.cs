@@ -90,11 +90,11 @@ public class HexData : MonoBehaviour
         {
             GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
             PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
-            List<Vector3Int> SurrondingVertices = GetSurrondingVertices();
+            List<Vector3Int> surrondingVertices = GetSurrondingVertices();
 
             for (int i = 0; i < 6; i++)
             {
-                GameObject currentVertex = gControl.GetVertex(SurrondingVertices[i]);
+                GameObject currentVertex = gControl.GetVertex(surrondingVertices[i]);
                 VertexData currentVertexData = currentVertex.GetComponent<VertexData>();
                 if (currentVertexData.ownerPlayer != 0) //if it has an owner
                 {
@@ -105,5 +105,48 @@ public class HexData : MonoBehaviour
     }
 
     public void ApplyRobber()
-    { }
+    {
+        GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        //do smth to make sure no other hex is being robbed currently
+        isRobbed = true;
+
+        //stealling from players on the hex
+        List<Vector3Int> surrondingVertices = GetSurrondingVertices();
+        for (int i = 0; i < 6; i++)
+        {
+            GameObject currentVertex = gControl.GetVertex(surrondingVertices[i]);
+            VertexData currentVertexData = currentVertex.GetComponent<VertexData>();
+            if ((currentVertexData.ownerPlayer != 0) && (currentVertexData.ownerPlayer != tControl.GetActivePlayer()))//if it has an owner
+            {
+                List<Resources> stealableResources = new List<Resources>();
+                //make sure the player has resources to steal
+                if (pControl.GetPlayerResource(currentVertexData.ownerPlayer, Resources.Brick) > 0)
+                {
+                    stealableResources.Add(Resources.Brick);
+                }
+                if (pControl.GetPlayerResource(currentVertexData.ownerPlayer, Resources.Lumber) > 0)
+                {
+                    stealableResources.Add(Resources.Lumber);
+                }
+                if (pControl.GetPlayerResource(currentVertexData.ownerPlayer, Resources.Ore) > 0)
+                {
+                    stealableResources.Add(Resources.Ore);
+                }
+                if (pControl.GetPlayerResource(currentVertexData.ownerPlayer, Resources.Grain) > 0)
+                {
+                    stealableResources.Add(Resources.Grain);
+                }
+                if (pControl.GetPlayerResource(currentVertexData.ownerPlayer, Resources.Sheep) > 0)
+                {
+                    stealableResources.Add(Resources.Sheep);
+                }
+
+                int randomResourceNum = Random.Range(0, stealableResources.Count);
+                pControl.EditPlayerResource(currentVertexData.ownerPlayer, stealableResources[randomResourceNum], -1);
+                pControl.EditPlayerResource(tControl.GetActivePlayer(), stealableResources[randomResourceNum], 1);
+            }
+        }
+    }
 }

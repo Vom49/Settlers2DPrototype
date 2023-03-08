@@ -17,6 +17,7 @@ public class DiceRoller : MonoBehaviour
         _DiceOutput.text = DiceTotal.ToString();
         if (DiceTotal == 7)
         {
+            TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
 
         }
         else
