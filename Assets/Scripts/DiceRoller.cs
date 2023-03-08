@@ -14,7 +14,14 @@ public class DiceRoller : MonoBehaviour
         int dice2 = Random.Range(1, 7);
         int DiceTotal = dice1 + dice2;
         GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
-        gControl.ResourceProduction(DiceTotal);
         _DiceOutput.text = DiceTotal.ToString();
+        if (DiceTotal == 7)
+        {
+
+        }
+        else
+        {
+            gControl.ResourceProduction(DiceTotal);
+        }
     }
 }
