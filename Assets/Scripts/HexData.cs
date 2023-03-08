@@ -91,6 +91,7 @@ public class HexData : MonoBehaviour
             GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
             PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
             List<Vector3Int> SurrondingVertices = GetSurrondingVertices();
+
             for (int i = 0; i < 6; i++)
             {
                 GameObject currentVertex = gControl.GetVertex(SurrondingVertices[i]);
@@ -102,4 +103,7 @@ public class HexData : MonoBehaviour
             }
         }
     }
+
+    public void ApplyRobber()
+    { }
 }
