@@ -408,4 +408,23 @@ public class GridControlScript : MonoBehaviour
             }
         }
     }
+
+    public void ResourceProduction(int diceResult)
+    {
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                if (HexGridArray[i, j] != null)
+                {
+                    GameObject hex = HexGridArray[i, j];
+                    HexData currentHexData = hex.GetComponent<HexData>();
+                    if (currentHexData.outputNumber == diceResult)
+                    {
+                        currentHexData.DistributeResources();
+                    }
+                }
+            }
+        }
+    }
 }

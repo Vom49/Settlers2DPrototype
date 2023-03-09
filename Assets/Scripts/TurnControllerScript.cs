@@ -10,7 +10,6 @@ public class TurnControllerScript : MonoBehaviour
 
     public int _maxPlayers;
 
-    private int setupCounter = 0;
     private bool setupAllPlayersGoneOnce = false;
 
     private void Start()
