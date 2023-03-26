@@ -12,6 +12,9 @@ public class VertexData : MonoBehaviour
     public int ownerPlayer = 0; //when a building is built this value changes to reflect who owns that building
     public bool buildingBlock = false;
 
+    [SerializeField] private GameObject villageSprite;
+    [SerializeField] private GameObject citySprite;
+
     [SerializeField] private Button _buildButton;
 
 
@@ -35,6 +38,19 @@ public class VertexData : MonoBehaviour
         ownerPlayer = tControl.GetActivePlayer();
         PreventAdjacentVillages();
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        villageSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
+        citySprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
+        if (buildingValue == 1)
+        {
+            
+            villageSprite.SetActive(true);
+            citySprite.SetActive(false);
+        } 
+        else
+        {
+            villageSprite.SetActive(false);
+            citySprite.SetActive(true);
+        }
         //add 1 victory point, as village is worth 1 and a city is worth 1 addiontal point
         pControl.EditPlayerResource(ownerPlayer, Resources.VictoryPoints, 1);
         tControl.MoveTurnAlong();
@@ -108,7 +124,7 @@ public class VertexData : MonoBehaviour
             }
             //and current player has the resources
         }
-        else if(tControl.GetTurnStep() == -1) //-1 is setup for placing starting villages
+        else if((tControl.GetTurnStep() == -1) && (buildingValue < 1)) //-1 is setup for placing starting villages
         {
             if (buildingBlock == false)
             {

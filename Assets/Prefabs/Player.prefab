@@ -834,13 +834,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f378dafd73ce6447a1b6607f0dd62d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 
   _BrickCounter: {fileID: 8193630943467763498}
   _LumberCounter: {fileID: 8019532412676904745}
   _OreCounter: {fileID: 8978211857649114715}
   _GrainCounter: {fileID: 599597085872336304}
   _SheepCounter: {fileID: 7319115312900415231}
   _VPCounter: {fileID: 6480767694579844374}
+  _playerName: {fileID: 4670042849710552648}
 --- !u!1 &4853458735135924825
 GameObject:
   m_ObjectHideFlags: 0
