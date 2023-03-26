@@ -284,6 +284,7 @@ public class GridControlScript : MonoBehaviour
                                         default:
                                             break;
                                     }
+                                    edgeSprite.SetActive(false);
                                 }
                             }
                             else

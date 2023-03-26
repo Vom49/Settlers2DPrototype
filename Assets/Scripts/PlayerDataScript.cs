@@ -5,7 +5,6 @@ using TMPro;
 
 public class PlayerDataScript : MonoBehaviour
 {
-    public string playerName;
     //for the resource counters
     [SerializeField] TMP_Text _BrickCounter;
     [SerializeField] TMP_Text _LumberCounter;
@@ -16,6 +15,8 @@ public class PlayerDataScript : MonoBehaviour
 
     //lookup for the resource counts
     private Dictionary<Resources, int> ResourceDict = new Dictionary<Resources, int>();
+
+    [SerializeField] TMP_Text _playerName;
 
     private void Start()
     {
@@ -56,5 +57,11 @@ public class PlayerDataScript : MonoBehaviour
                 _VPCounter.text = ResourceDict[tResource].ToString();
                 break;
         }
+    }
+
+    public void VisualSetUp(string pName, Color pColor)
+    {
+        _playerName.text = pName;
+        _playerName.color = pColor;
     }
 }

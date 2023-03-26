@@ -15,13 +15,20 @@ public class PlayerControllerScript : MonoBehaviour
     {
         maxPlayers = GameObject.Find("TurnController").GetComponent<TurnControllerScript>()._maxPlayers;
         playerObjs = new GameObject[maxPlayers + 1];
+        playerNames = new string[maxPlayers + 1];
+        playerColors = new Color[maxPlayers + 1];
         float yOffset = -1.9f;
-        /*
+        
         playerNames[1] = "Tim";
         playerNames[2] = "Jim";
         playerNames[3] = "Bim";
         playerNames[4] = "Lim";
-        */
+        
+        playerColors[1] = Color.red;
+        playerColors[2] = Color.green;
+        playerColors[3] = Color.blue;
+        playerColors[4] = Color.yellow;
+
         //create the player objects
         for (int i = 1; i <= maxPlayers; i++)
         {
@@ -30,6 +37,9 @@ public class PlayerControllerScript : MonoBehaviour
             playerInstance.transform.position = new Vector2(transform.position.x, transform.position.y + (yOffset * (i-1)));
             playerInstance.name = ("Player_" + i);
             playerObjs[i] = playerInstance;
+
+            //hand player it's name
+            playerInstance.GetComponent<PlayerDataScript>().VisualSetUp(playerNames[i], playerColors[i]);
         }
     }
     public GameObject GetPlayerObj(int pNum)

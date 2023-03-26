@@ -10,6 +10,7 @@ public class EdgeData : MonoBehaviour
     public Vector3Int vertex2;
 
     [SerializeField] private GameObject _buildButton;
+    [SerializeField] private GameObject edgeSprite;
 
 
     private void Update()
@@ -19,9 +20,13 @@ public class EdgeData : MonoBehaviour
     public void ClickBuildButton()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        edgeSprite.SetActive(true);
+
         Debug.Log("Button " + vertex1 + " " + vertex2);
         roadBuilt = true;
         ownerPlayer = tControl.GetActivePlayer();
+        edgeSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
         tControl.MoveTurnAlong();
     }
 
