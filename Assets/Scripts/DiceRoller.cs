@@ -15,10 +15,10 @@ public class DiceRoller : MonoBehaviour
         int DiceTotal = dice1 + dice2;
         GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
         _DiceOutput.text = DiceTotal.ToString();
-        if (DiceTotal == 7)
+        if (DiceTotal == 7) //robber
         {
             TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
-
+            tControl.turnStep = 66;
         }
         else
         {

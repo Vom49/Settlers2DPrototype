@@ -40,12 +40,15 @@ public class GridControlScript : MonoBehaviour
 
         //adjusts the scale of the grid
         transform.localScale += new Vector3(1f, 1f, 0f);
+
+        HexData hData = GameObject.Find("Hex_3_3").GetComponent<HexData>();
+        hData.ApplyRobber();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //draws the grid using an Axial method of storing the grid
@@ -73,8 +76,8 @@ public class GridControlScript : MonoBehaviour
             }
         }
 
-        
-        
+
+
     }
     //draws the vertices of the grid
     private void drawVertices()
@@ -116,7 +119,7 @@ public class GridControlScript : MonoBehaviour
     private void destroyExcessHexes()
     {
         //destroys the far left and far right columns
-        
+
         for (int i = 0; i < gridHeight; i++)
         {
             Destroy(GameObject.Find("Hex_0_" + i));
@@ -161,7 +164,7 @@ public class GridControlScript : MonoBehaviour
         //loop through and remove top row
         for (int j = 0; j < gridHeight; j++)
         {
-            Destroy(GameObject.Find("Vertex_" + j +"_0_0"));
+            Destroy(GameObject.Find("Vertex_" + j + "_0_0"));
             VertexDict.Remove(new Vector3Int(j, 0, 0));
             Destroy(GameObject.Find("Vertex_" + j + "_0_1"));
             VertexDict.Remove(new Vector3Int(j, 0, 1));
@@ -243,7 +246,7 @@ public class GridControlScript : MonoBehaviour
             for (int j = 0; j < gridHeight; j++)
             {
                 //this should not require different code for vertices with different k values
-                for(int k = 0; k < 1; k++)
+                for (int k = 0; k < 1; k++)
                 {
                     GameObject rootVertex;
                     if (VertexDict.TryGetValue(new Vector3Int(i, j, k), out rootVertex))
@@ -251,10 +254,10 @@ public class GridControlScript : MonoBehaviour
                         //this gets the vertex data script and runs the method Find Adjacent Vertices, returning the IDs of the vertices adjacent
                         List<Vector3Int> adjVertexIDList = rootVertex.GetComponent<VertexData>().FindAdjacentVertices();
                         //in a hex grid it will always have up to 3 adjencent vertices
-                        for(int n = 0; n < 3; n++)
+                        for (int n = 0; n < 3; n++)
                         {
                             //if the edge does not already exist
-                            if (getEdge(new Vector3Int(i,j,k), adjVertexIDList[n]) == null)
+                            if (getEdge(new Vector3Int(i, j, k), adjVertexIDList[n]) == null)
                             {
                                 GameObject otherVertex;
                                 if (VertexDict.TryGetValue(adjVertexIDList[n], out otherVertex))
@@ -276,7 +279,7 @@ public class GridControlScript : MonoBehaviour
                                     switch (n)
                                     {
                                         case 0:
-                                            edgeSprite.transform.rotation = Quaternion.Euler(0,0,-60);
+                                            edgeSprite.transform.rotation = Quaternion.Euler(0, 0, -60);
                                             break;
                                         case 2:
                                             edgeSprite.transform.rotation = Quaternion.Euler(0, 0, 60);
@@ -293,7 +296,7 @@ public class GridControlScript : MonoBehaviour
                             }
                         }
                     }
-                } 
+                }
             }
         }
     }
@@ -302,11 +305,11 @@ public class GridControlScript : MonoBehaviour
     public GameObject getEdge(Vector3Int edge1ID, Vector3Int edge2ID)
     {
         GameObject edge;
-        if(EdgeDict.TryGetValue((edge1ID, edge2ID), out edge))
+        if (EdgeDict.TryGetValue((edge1ID, edge2ID), out edge))
         {
             return (edge);
         }
-        else if(EdgeDict.TryGetValue((edge2ID, edge1ID), out edge))
+        else if (EdgeDict.TryGetValue((edge2ID, edge1ID), out edge))
         {
             return (edge);
         }
@@ -402,7 +405,7 @@ public class GridControlScript : MonoBehaviour
         {
             for (int j = 0; j < gridHeight; j++)
             {
-                if (HexGridArray[i,j] != null)
+                if (HexGridArray[i, j] != null)
                 {
                     HexGridArray[i, j].GetComponent<HexData>().AssignHexData(hexResources[i, j], hexNum[i, j]);
                 }
@@ -423,6 +426,25 @@ public class GridControlScript : MonoBehaviour
                     if (currentHexData.outputNumber == diceResult)
                     {
                         currentHexData.DistributeResources();
+                    }
+                }
+            }
+        }
+    }
+
+    public void RemoveRobbers()
+    {
+        for (int i = 0; i < gridWidth; i++)
+        {
+            for (int j = 0; j < gridHeight; j++)
+            {
+                if (HexGridArray[i, j] != null)
+                {
+                    GameObject hex = HexGridArray[i, j];
+                    HexData currentHexData = hex.GetComponent<HexData>();
+                    if (currentHexData.isRobbed == true)
+                    {
+                        currentHexData.RemoveRobber();
                     }
                 }
             }
