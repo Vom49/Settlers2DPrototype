@@ -14,9 +14,16 @@ public class TurnControllerScript : MonoBehaviour
 
     private int whenWasRobStarted = 1;
 
+    [SerializeField] private GameObject nextStepButton;
+
     private void Start()
     {
         //playerNames = new string[maxPlayers];
+    }
+
+    private void Update()
+    {
+        EnableDisableNextStepButton();
     }
     void PassPlayerTurn()
     {
@@ -92,6 +99,11 @@ public class TurnControllerScript : MonoBehaviour
         //proper turn
 
         //incremend through steps
+    }
+
+    private void EnableDisableNextStepButton()
+    {
+
     }
 
     public void GoToRobbing()
