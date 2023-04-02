@@ -69,6 +69,10 @@ public class TurnControllerScript : MonoBehaviour
             turnStep = 1;
             PassPlayerTurn();
         }
+        else if (turnStep == 66) //robber step
+        {
+            turnStep = 1;
+        }
         else
         {
             turnStep++;

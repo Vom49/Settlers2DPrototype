@@ -24,11 +24,17 @@ public class HexData : MonoBehaviour
 
     [SerializeField] private TMP_Text outputNumText;
     [SerializeField] private SpriteRenderer hexSpriteRenderer;
+    [SerializeField] private GameObject robberSprite;
+    [SerializeField] private GameObject robButton;
 
     private void Start()
     {
     }
 
+    private void Update()
+    {
+        EnableDisableButton();
+    }
     public void AssignHexData(Resources desiredResource, int desiredOutputNum)
     {
         ProducedResource = desiredResource;
@@ -111,6 +117,7 @@ public class HexData : MonoBehaviour
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         //do smth to make sure no other hex is being robbed currently
         isRobbed = true;
+        robberSprite.SetActive(true);
 
         //stealling from players on the hex
         List<Vector3Int> surrondingVertices = GetSurrondingVertices();
@@ -147,6 +154,30 @@ public class HexData : MonoBehaviour
                 pControl.EditPlayerResource(currentVertexData.ownerPlayer, stealableResources[randomResourceNum], -1);
                 pControl.EditPlayerResource(tControl.GetActivePlayer(), stealableResources[randomResourceNum], 1);
             }
+        }
+        //this prevents the turnstep from moving when in the setup
+        if (tControl.turnStep == 66)
+        {
+            tControl.MoveTurnAlong();
+        }
+    }
+    public void RemoveRobber()
+    {
+        robberSprite.SetActive(false);
+    }
+
+    private void EnableDisableButton()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+
+        //robButton
+        if (tControl.turnStep == 66)
+        {
+            robButton.SetActive(true);
+        } 
+        else
+        {
+            robButton.SetActive(false);
         }
     }
 }
