@@ -113,6 +113,14 @@ public class TurnControllerScript : MonoBehaviour
     }
     private void CheckForWin()
     {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        if (pControl.GetPlayerResource(activePlayer, Resources.VictoryPoints) >= 10)
+        {
+            Win(activePlayer);
+        }
+    }
+    private void Win(int playerNum)
+    {
 
     }
 }
