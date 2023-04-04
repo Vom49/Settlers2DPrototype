@@ -525,6 +525,7 @@ MonoBehaviour:
   turnStep: -1
   _maxPlayers: 4
   nextStepButton: {fileID: 591825661052449757}
+  nextStepButtonText: {fileID: 591825661160725563}
   VictoryScreen: {fileID: 8805670933924135432}
 --- !u!1 &809567719688222676
 GameObject:

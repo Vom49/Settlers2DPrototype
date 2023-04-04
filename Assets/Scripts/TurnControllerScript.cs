@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TurnControllerScript : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class TurnControllerScript : MonoBehaviour
     private int whenWasRobStarted = 1;
 
     [SerializeField] private GameObject nextStepButton;
+    [SerializeField] private TMP_Text nextStepButtonText;
 
     [SerializeField] private GameObject VictoryScreen;
 
@@ -105,7 +107,21 @@ public class TurnControllerScript : MonoBehaviour
 
     private void EnableDisableNextStepButton()
     {
-
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        if (tControl.GetTurnStep() == 2)
+        {
+            nextStepButtonText.text = "Next Step";
+            nextStepButton.SetActive(true);
+        }
+        else if (tControl.GetTurnStep() == 3)
+        {
+            nextStepButtonText.text = "Next Turn";
+            nextStepButton.SetActive(true);
+        }
+        else
+        {
+            nextStepButton.SetActive(false);
+        }
     }
 
     public void GoToRobbing()
