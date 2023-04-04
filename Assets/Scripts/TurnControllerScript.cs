@@ -16,6 +16,8 @@ public class TurnControllerScript : MonoBehaviour
 
     [SerializeField] private GameObject nextStepButton;
 
+    [SerializeField] private GameObject VictoryScreen;
+
     private void Start()
     {
         //playerNames = new string[maxPlayers];
@@ -121,6 +123,7 @@ public class TurnControllerScript : MonoBehaviour
     }
     private void Win(int playerNum)
     {
-
+        VictoryScreen.SetActive(true);
+        VictoryScreen.GetComponent<VictoryScript>().setPlayerNameToActivePlayer();
     }
 }
