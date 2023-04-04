@@ -12,9 +12,20 @@ public class TurnControllerScript : MonoBehaviour
 
     private bool setupAllPlayersGoneOnce = false;
 
+    private int whenWasRobStarted = 1;
+
+    [SerializeField] private GameObject nextStepButton;
+
+    [SerializeField] private GameObject VictoryScreen;
+
     private void Start()
     {
         //playerNames = new string[maxPlayers];
+    }
+
+    private void Update()
+    {
+        EnableDisableNextStepButton();
     }
     void PassPlayerTurn()
     {
@@ -36,6 +47,14 @@ public class TurnControllerScript : MonoBehaviour
         return (activePlayer);
     }
 
+
+    //turnsteps
+    //-1 and 0 for setup
+    //1 for dice roll
+    //66 for robbing (only accseed in spiecal cases
+    //2 for trade
+    //3 for build
+    //develoment cards can be played at any time after the dice roll
     public void MoveTurnAlong()
     {
         //setup
@@ -67,11 +86,12 @@ public class TurnControllerScript : MonoBehaviour
         {
             //check for win
             turnStep = 1;
+            CheckForWin();
             PassPlayerTurn();
         }
         else if (turnStep == 66) //robber step
         {
-            turnStep = 1;
+            turnStep = whenWasRobStarted;
         }
         else
         {
@@ -81,5 +101,29 @@ public class TurnControllerScript : MonoBehaviour
         //proper turn
 
         //incremend through steps
+    }
+
+    private void EnableDisableNextStepButton()
+    {
+
+    }
+
+    public void GoToRobbing()
+    {
+        whenWasRobStarted = turnStep;
+        turnStep = 66;
+    }
+    private void CheckForWin()
+    {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        if (pControl.GetPlayerResource(activePlayer, Resources.VictoryPoints) >= 10)
+        {
+            Win(activePlayer);
+        }
+    }
+    private void Win(int playerNum)
+    {
+        VictoryScreen.SetActive(true);
+        VictoryScreen.GetComponent<VictoryScript>().setPlayerNameToActivePlayer();
     }
 }

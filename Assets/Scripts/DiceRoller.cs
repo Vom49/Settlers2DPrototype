@@ -7,6 +7,8 @@ public class DiceRoller : MonoBehaviour
 {
     [SerializeField] TMP_Text _DiceOutput;
 
+
+    //make dice roll button appear on turnstep 1
     public void OnClick()
     {
         //generate multiple 1-6 nums
@@ -18,7 +20,7 @@ public class DiceRoller : MonoBehaviour
         if (DiceTotal == 7) //robber
         {
             TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
-            tControl.turnStep = 66;
+            tControl.GoToRobbing();
         }
         else
         {

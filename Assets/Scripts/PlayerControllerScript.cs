@@ -53,6 +53,11 @@ public class PlayerControllerScript : MonoBehaviour
         return (playerColors[pNum]);
     }
 
+    public string GetPlayerName(int pNum)
+    {
+        return (playerNames[pNum]);
+    }
+
     public int GetPlayerResource(int playerNum, Resources tResource)
     {
         GameObject p = GetPlayerObj(playerNum);
