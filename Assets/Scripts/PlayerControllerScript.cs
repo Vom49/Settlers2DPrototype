@@ -17,7 +17,7 @@ public class PlayerControllerScript : MonoBehaviour
         playerObjs = new GameObject[maxPlayers + 1];
         playerNames = new string[maxPlayers + 1];
         playerColors = new Color[maxPlayers + 1];
-        float yOffset = -1.9f;
+        float yOffset = -1.6f;
         
         playerNames[1] = "Tim";
         playerNames[2] = "Jim";

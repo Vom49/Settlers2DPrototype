@@ -20,6 +20,8 @@ public class TurnControllerScript : MonoBehaviour
 
     [SerializeField] private GameObject VictoryScreen;
 
+    [SerializeField] private TMP_Text playerNameText;
+
     private void Start()
     {
         //playerNames = new string[maxPlayers];
@@ -28,6 +30,7 @@ public class TurnControllerScript : MonoBehaviour
     private void Update()
     {
         EnableDisableNextStepButton();
+        UpdateActivePlayerName();
     }
     void PassPlayerTurn()
     {
@@ -84,7 +87,7 @@ public class TurnControllerScript : MonoBehaviour
                 activePlayer--;
             }
         }
-        else if (turnStep == 10)//last turn step
+        else if (turnStep == 3)//last turn step
         {
             //check for win
             turnStep = 1;
@@ -94,6 +97,10 @@ public class TurnControllerScript : MonoBehaviour
         else if (turnStep == 66) //robber step
         {
             turnStep = whenWasRobStarted;
+            if (turnStep == 1)
+            {
+                turnStep++;
+            }
         }
         else
         {
@@ -141,5 +148,12 @@ public class TurnControllerScript : MonoBehaviour
     {
         VictoryScreen.SetActive(true);
         VictoryScreen.GetComponent<VictoryScript>().setPlayerNameToActivePlayer();
+    }
+
+    private void UpdateActivePlayerName()
+    {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        playerNameText.color = pControl.GetPlayerColor(activePlayer);
+        playerNameText.text = pControl.GetPlayerName(activePlayer);
     }
 }

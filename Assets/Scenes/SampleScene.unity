@@ -161,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 36420380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10, y: 3, z: 1.3226308}
+  m_LocalPosition: {x: -10, y: 3.2, z: 1.3226308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,6 +300,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1082455009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 591825662195145080, guid: 823125f95439e054f98b4452f91d2e0c, type: 3}
+  m_PrefabInstance: {fileID: 591825661639060914}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e01faeef1ee9007469f4294629b862e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1698845174
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,17 +379,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1746613255 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3828195210169156403, guid: e2c6fcc9ad3913640a54b0c9dd52985a, type: 3}
-  m_PrefabInstance: {fileID: 3828195210409266921}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1671d860832cf7f4db6d35bcce039c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2080399204
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +489,11 @@ PrefabInstance:
     - target: {fileID: 591825661052449731, guid: 823125f95439e054f98b4452f91d2e0c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1746613255}
+      objectReference: {fileID: 1082455009}
+    - target: {fileID: 591825661052449731, guid: 823125f95439e054f98b4452f91d2e0c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MoveTurnAlong
+      objectReference: {fileID: 0}
     - target: {fileID: 591825662195145082, guid: 823125f95439e054f98b4452f91d2e0c, type: 3}
       propertyPath: m_Name
       value: TurnController
@@ -553,11 +557,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1134775698471292166, guid: 3f322c26b40594b44bccf0684a26bee0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.12641913
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 1134775698471292166, guid: 3f322c26b40594b44bccf0684a26bee0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69799346
+      value: 2.31
       objectReference: {fileID: 0}
     - target: {fileID: 1134775698471292166, guid: 3f322c26b40594b44bccf0684a26bee0, type: 3}
       propertyPath: m_LocalPosition.z

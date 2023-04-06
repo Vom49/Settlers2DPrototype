@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TradeControllerScript : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class TradeControllerScript : MonoBehaviour
 
     [SerializeField] private GameObject TradeWidget;
     [SerializeField] private GameObject TradeOfferButton;
-    
+    [SerializeField] private TMP_Text ActivePlayerText;
+
     void Start()
     {
         pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
@@ -22,6 +24,7 @@ public class TradeControllerScript : MonoBehaviour
     {
         EnableDisableTradeWidget();
         EnableDisableOfferButton();
+        UpdateActivePlayerText();
     }
 
     private void EnableDisableTradeWidget()
@@ -31,5 +34,10 @@ public class TradeControllerScript : MonoBehaviour
     private void EnableDisableOfferButton()
     {
 
+    }
+    private void UpdateActivePlayerText()
+    {
+        ActivePlayerText.text = pControl.GetPlayerName(tControl.GetActivePlayer());
+        ActivePlayerText.color = pControl.GetPlayerColor(tControl.GetActivePlayer());
     }
 }

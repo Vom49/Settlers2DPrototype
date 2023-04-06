@@ -178,7 +178,6 @@ public class VertexData : MonoBehaviour
                     //if this edge exists but is not the exlusion edge
                     if(targetEdge.GetComponent<EdgeData>().CheckOwningPlayer() == tControl.GetActivePlayer())
                     {
-                        Debug.Log("edge owned");
                         return (true);
                     }
                 }
