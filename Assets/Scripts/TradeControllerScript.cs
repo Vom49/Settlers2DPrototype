@@ -56,7 +56,68 @@ public class TradeControllerScript : MonoBehaviour
     }
     private void EnableDisableOfferButton()
     {
-        TradeOfferButton.SetActive(ALLDialsPossible());
+        if (currentTradeTarget == 0)
+        {
+            int playerGainCount = 0;
+            int bankGainCount = 0;
+            if (BrickDial.GetDialValue() > 0)
+            {
+                playerGainCount += BrickDial.GetDialValue();
+            }
+            else if (BrickDial.GetDialValue() < 0)
+            {
+                bankGainCount += -(BrickDial.GetDialValue());
+            }
+
+            if (LumberDial.GetDialValue() > 0)
+            {
+                playerGainCount += BrickDial.GetDialValue();
+            }
+            else if (LumberDial.GetDialValue() < 0)
+            {
+                bankGainCount += -(BrickDial.GetDialValue());
+            }
+
+            if (OreDial.GetDialValue() > 0)
+            {
+                playerGainCount += BrickDial.GetDialValue();
+            }
+            else if (OreDial.GetDialValue() < 0)
+            {
+                bankGainCount += -(BrickDial.GetDialValue());
+            }
+
+            if (GrainDial.GetDialValue() > 0)
+            {
+                playerGainCount += BrickDial.GetDialValue();
+            }
+            else if (GrainDial.GetDialValue() < 0)
+            {
+                bankGainCount += -(BrickDial.GetDialValue());
+            }
+
+            if (SheepDial.GetDialValue() > 0)
+            {
+                playerGainCount += BrickDial.GetDialValue();
+            }
+            else if (SheepDial.GetDialValue() < 0)
+            {
+                bankGainCount += -(BrickDial.GetDialValue());
+            }
+
+            if ((ALLDialsPossible() == true) && playerGainCount <= bankGainCount/4)
+            {
+                TradeOfferButton.SetActive(true);
+            }
+            else
+            {
+                TradeOfferButton.SetActive(false);
+            }
+        }
+        else
+        {
+            TradeOfferButton.SetActive(ALLDialsPossible());
+        }
     }
     private void UpdateActivePlayerText()
     {
