@@ -9,7 +9,7 @@ public class PlayerControllerScript : MonoBehaviour
     private GameObject[] playerObjs;
     private string[] playerNames;
     private Color[] playerColors;
-    private int maxPlayers;
+    public int maxPlayers;
 
     private void Start()
     {
@@ -68,5 +68,10 @@ public class PlayerControllerScript : MonoBehaviour
     {
         GameObject p = GetPlayerObj(playerNum);
         p.GetComponent<PlayerDataScript>().EditResourceAmount(tResource, resourceAmount);
+    }
+
+    public int GetMaxPlayers()
+    {
+        return (maxPlayers);
     }
 }

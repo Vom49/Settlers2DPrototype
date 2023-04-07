@@ -108,8 +108,8 @@ public class TurnControllerScript : MonoBehaviour
         }
         //-1, 0 for player 1, then 2 then 3 then 4, repeat
         //proper turn
-
-        //incremend through steps
+        TradeControllerScript tradeControl = GameObject.Find("TradeController").GetComponent<TradeControllerScript>();
+        tradeControl.UpdateTradeTargets();
     }
 
     private void EnableDisableNextStepButton()
