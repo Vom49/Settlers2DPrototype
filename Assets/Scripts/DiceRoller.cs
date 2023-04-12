@@ -6,7 +6,12 @@ using TMPro;
 public class DiceRoller : MonoBehaviour
 {
     [SerializeField] TMP_Text _DiceOutput;
+    [SerializeField] GameObject RollButton;
 
+    private void Update()
+    {
+        EnableDisableRollButton();
+    }
 
     //make dice roll button appear on turnstep 1
     public void OnClick()
@@ -16,15 +21,29 @@ public class DiceRoller : MonoBehaviour
         int dice2 = Random.Range(1, 7);
         int DiceTotal = dice1 + dice2;
         GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         _DiceOutput.text = DiceTotal.ToString();
         if (DiceTotal == 7) //robber
         {
-            TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
             tControl.GoToRobbing();
         }
         else
         {
             gControl.ResourceProduction(DiceTotal);
+            tControl.MoveTurnAlong();
+        }
+    }
+
+    private void EnableDisableRollButton()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        if (tControl.GetTurnStep() == 1)
+        {
+            RollButton.SetActive(true);
+        }
+        else
+        {
+            RollButton.SetActive(false);
         }
     }
 }
