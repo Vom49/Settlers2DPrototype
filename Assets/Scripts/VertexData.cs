@@ -53,7 +53,7 @@ public class VertexData : MonoBehaviour
         }
         //add 1 victory point, as village is worth 1 and a city is worth 1 addiontal point
         pControl.EditPlayerResource(ownerPlayer, Resources.VictoryPoints, 1);
-        tControl.MoveTurnAlong();
+        //tControl.MoveTurnAlong();
     }
 
     public List<Vector3Int> FindAdjacentVertices()

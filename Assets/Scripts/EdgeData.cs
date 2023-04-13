@@ -27,7 +27,7 @@ public class EdgeData : MonoBehaviour
         roadBuilt = true;
         ownerPlayer = tControl.GetActivePlayer();
         edgeSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
-        tControl.MoveTurnAlong();
+        //tControl.MoveTurnAlong();
     }
 
     private void EnableDisableButton()
