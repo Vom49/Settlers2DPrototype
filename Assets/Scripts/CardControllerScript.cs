@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GridControl_Scr : MonoBehaviour
+public class CardControllerScript : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
