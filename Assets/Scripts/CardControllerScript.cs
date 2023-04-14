@@ -7,6 +7,11 @@ public class CardControllerScript : MonoBehaviour
     private int[,] playerHandData = new int[4,6];
     [SerializeField] private CardDataScript[] handDisplay = new CardDataScript[6];
     private int[] deckArray = new int[25];
+
+    private void Start()
+    {
+        SetupDeck();
+    }
     private void Update()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
@@ -56,7 +61,7 @@ public class CardControllerScript : MonoBehaviour
         }
 
         //for loop
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 6; i++)
         {
             //find first empty slot
             if (playerHandData[tControl.GetActivePlayer(), i] == 0)
