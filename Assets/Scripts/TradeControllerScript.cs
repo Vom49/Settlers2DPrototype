@@ -143,7 +143,7 @@ public class TradeControllerScript : MonoBehaviour
             {
                 tradeableTargetsList.Add(pControl.GetPlayerName(i));
                 indexToIDlookup[indexTracker] = i;
-                Debug.Log(indexToIDlookup[indexTracker]);
+                //Debug.Log(indexToIDlookup[indexTracker]);
                 indexTracker++;
             }
         }

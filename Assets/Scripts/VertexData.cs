@@ -110,7 +110,7 @@ public class VertexData : MonoBehaviour
         {
             if ((buildingValue == 1) && (ownerPlayer == activePlayer)) //will only activate for building a city
             {
-                Debug.Log("city build");
+                //Debug.Log("city build");
                 //current player has the resources
                 if ((pControl.GetPlayerResource(activePlayer, Resources.Ore) >= 3) && (pControl.GetPlayerResource(activePlayer, Resources.Grain) >= 2))
                 {
