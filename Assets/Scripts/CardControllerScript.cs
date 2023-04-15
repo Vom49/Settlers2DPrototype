@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class CardControllerScript : MonoBehaviour
 {
-    private int[,] playerHandData = new int[4,6];
+    private int[,] playerHandData = new int[5,6]; //playerID, cardPosition
     [SerializeField] private CardDataScript[] handDisplay = new CardDataScript[6];
     private int[] deckArray = new int[25];
+
+
+    [SerializeField] private GameObject ShowHandButton;
+    [SerializeField] private GameObject CardPanel;
+    private bool handShowing = false;
 
     private void Start()
     {
@@ -19,6 +24,38 @@ public class CardControllerScript : MonoBehaviour
         {
             handDisplay[i].setID(playerHandData[tControl.GetActivePlayer(), i]);
         }
+        EnableDisableHandButton();
+    }
+
+    private void EnableDisableHandButton()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        if (handShowing == false)
+        {
+            int turnStep = tControl.GetTurnStep();
+            if (turnStep == 2 || turnStep == 3)
+            {
+                ShowHandButton.SetActive(true);
+            }
+            else
+            {
+                ShowHandButton.SetActive(false);
+            }
+        }
+    }
+
+    public void ShowHand()
+    {
+        handShowing = true;
+        CardPanel.SetActive(true);
+        ShowHandButton.SetActive(false);
+    }
+
+    public void HideHand()
+    {
+        handShowing = false;
+        CardPanel.SetActive(false);
+        ShowHandButton.SetActive(true);
     }
 
     private void SetupDeck()

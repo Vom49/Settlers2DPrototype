@@ -10,7 +10,8 @@ public class CardDataScript : MonoBehaviour
     //on click, have card perform action based on card ID
 
     public int cardID = 0;
-    private Image buttonImage;
+    [SerializeField] private Image buttonImage;
+
     public Sprite blankCard;
     public Sprite victoryCard;
     public Sprite knightCard;
