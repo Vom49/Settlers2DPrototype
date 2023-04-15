@@ -25,6 +25,21 @@ public class CardDataScript : MonoBehaviour
         
         switch (cardID)
         {
+            case 1:
+                buttonImage.sprite = victoryCard;
+                break;
+            case 2:
+                buttonImage.sprite = knightCard;
+                break;
+            case 3:
+                buttonImage.sprite = roadroadCard;
+                break;
+            case 4:
+                buttonImage.sprite = resourceCard;
+                break;
+            case 5:
+                buttonImage.sprite = monopolyCard;
+                break;
             default:
                 buttonImage.sprite = blankCard;
                 break;
@@ -43,6 +58,16 @@ public class CardDataScript : MonoBehaviour
     {
         switch (cardID)
         {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
             default:
                 break;
         }
