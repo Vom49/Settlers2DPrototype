@@ -44,6 +44,9 @@ public class CardDataScript : MonoBehaviour
                 buttonImage.sprite = blankCard;
                 break;
         }
+        CardControllerScript cControl = GameObject.Find("CardController").GetComponent<CardControllerScript>();
+        cControl.HideHand();
+        cardID = 0;
     }
 
     /*
@@ -59,20 +62,51 @@ public class CardDataScript : MonoBehaviour
         switch (cardID)
         {
             case 1:
+                VictoryPointCard();
                 break;
             case 2:
+                KnightPointCard();
                 break;
             case 3:
+                FreeRoadsCard();
                 break;
             case 4:
+                TwoResourceCard();
                 break;
             case 5:
+                StealResourceCard();
                 break;
             default:
                 break;
         }
+
     }
 
+    private void VictoryPointCard()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.VictoryPoints, 1);
+    }
+
+    private void KnightPointCard()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        tControl.GoToRobbing();
+    }
+    private void FreeRoadsCard()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        tControl.GoToFreeRoads();
+    }
+    private void TwoResourceCard()
+    {
+
+    }
+    private void StealResourceCard()
+    {
+
+    }
 
     public void setID(int ID)
     {
