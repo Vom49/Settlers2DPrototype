@@ -101,11 +101,13 @@ public class CardDataScript : MonoBehaviour
     }
     private void TwoResourceCard()
     {
-
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        tControl.GoToFreeResources();
     }
     private void StealResourceCard()
     {
-
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        tControl.GoToMonopoly();
     }
 
     public void setID(int ID)
