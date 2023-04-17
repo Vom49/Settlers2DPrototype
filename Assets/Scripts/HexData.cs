@@ -115,7 +115,7 @@ public class HexData : MonoBehaviour
         GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
-        //do smth to make sure no other hex is being robbed currently
+        gControl.RemoveRobbers();
         isRobbed = true;
         robberSprite.SetActive(true);
 
