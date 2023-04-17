@@ -115,7 +115,7 @@ public class HexData : MonoBehaviour
         GridControlScript gControl = GameObject.Find("GridController").GetComponent<GridControlScript>();
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
-        //do smth to make sure no other hex is being robbed currently
+        gControl.RemoveRobbers();
         isRobbed = true;
         robberSprite.SetActive(true);
 
@@ -149,10 +149,13 @@ public class HexData : MonoBehaviour
                 {
                     stealableResources.Add(Resources.Sheep);
                 }
-
-                int randomResourceNum = Random.Range(0, stealableResources.Count);
-                pControl.EditPlayerResource(currentVertexData.ownerPlayer, stealableResources[randomResourceNum], -1);
-                pControl.EditPlayerResource(tControl.GetActivePlayer(), stealableResources[randomResourceNum], 1);
+                if (stealableResources.Count>0)
+                {
+                    int randomResourceNum = Random.Range(0, stealableResources.Count);
+                    pControl.EditPlayerResource(currentVertexData.ownerPlayer, stealableResources[randomResourceNum], -1);
+                    pControl.EditPlayerResource(tControl.GetActivePlayer(), stealableResources[randomResourceNum], 1);
+                }
+                stealableResources.Clear();
             }
         }
         //this prevents the turnstep from moving when in the setup
@@ -164,6 +167,7 @@ public class HexData : MonoBehaviour
     public void RemoveRobber()
     {
         robberSprite.SetActive(false);
+        isRobbed = false;
     }
 
     private void EnableDisableButton()

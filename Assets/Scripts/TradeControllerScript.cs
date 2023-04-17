@@ -71,38 +71,38 @@ public class TradeControllerScript : MonoBehaviour
 
             if (LumberDial.GetDialValue() > 0)
             {
-                playerGainCount += BrickDial.GetDialValue();
+                playerGainCount += LumberDial.GetDialValue();
             }
             else if (LumberDial.GetDialValue() < 0)
             {
-                bankGainCount += -(BrickDial.GetDialValue());
+                bankGainCount += -(LumberDial.GetDialValue());
             }
 
             if (OreDial.GetDialValue() > 0)
             {
-                playerGainCount += BrickDial.GetDialValue();
+                playerGainCount += OreDial.GetDialValue();
             }
             else if (OreDial.GetDialValue() < 0)
             {
-                bankGainCount += -(BrickDial.GetDialValue());
+                bankGainCount += -(OreDial.GetDialValue());
             }
 
             if (GrainDial.GetDialValue() > 0)
             {
-                playerGainCount += BrickDial.GetDialValue();
+                playerGainCount += GrainDial.GetDialValue();
             }
             else if (GrainDial.GetDialValue() < 0)
             {
-                bankGainCount += -(BrickDial.GetDialValue());
+                bankGainCount += -(GrainDial.GetDialValue());
             }
 
             if (SheepDial.GetDialValue() > 0)
             {
-                playerGainCount += BrickDial.GetDialValue();
+                playerGainCount += SheepDial.GetDialValue();
             }
             else if (SheepDial.GetDialValue() < 0)
             {
-                bankGainCount += -(BrickDial.GetDialValue());
+                bankGainCount += -(SheepDial.GetDialValue());
             }
 
             if ((ALLDialsPossible() == true) && playerGainCount <= bankGainCount/4)
@@ -143,7 +143,7 @@ public class TradeControllerScript : MonoBehaviour
             {
                 tradeableTargetsList.Add(pControl.GetPlayerName(i));
                 indexToIDlookup[indexTracker] = i;
-                Debug.Log(indexToIDlookup[indexTracker]);
+                //Debug.Log(indexToIDlookup[indexTracker]);
                 indexTracker++;
             }
         }

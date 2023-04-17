@@ -40,20 +40,31 @@ public class VertexData : MonoBehaviour
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         villageSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
         citySprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
-        if (buildingValue == 1)
+        if (buildingValue == 1) //village
         {
-            
+            if (tControl.GetTurnStep() == 3)
+            {
+                pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Brick, -1);
+                pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Lumber, -1);
+                pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Grain, -1);
+                pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Sheep, -1);
+            }
             villageSprite.SetActive(true);
             citySprite.SetActive(false);
         } 
-        else
+        else //city
         {
             villageSprite.SetActive(false);
             citySprite.SetActive(true);
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Ore, -3);
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Grain, -2);
         }
         //add 1 victory point, as village is worth 1 and a city is worth 1 addiontal point
         pControl.EditPlayerResource(ownerPlayer, Resources.VictoryPoints, 1);
-        //tControl.MoveTurnAlong();
+        if (tControl.GetTurnStep() == -1)
+        {
+            tControl.MoveTurnAlong();
+        }
     }
 
     public List<Vector3Int> FindAdjacentVertices()
@@ -107,7 +118,7 @@ public class VertexData : MonoBehaviour
         {
             if ((buildingValue == 1) && (ownerPlayer == activePlayer)) //will only activate for building a city
             {
-                Debug.Log("city build");
+                //Debug.Log("city build");
                 //current player has the resources
                 if ((pControl.GetPlayerResource(activePlayer, Resources.Ore) >= 3) && (pControl.GetPlayerResource(activePlayer, Resources.Grain) >= 2))
                 {

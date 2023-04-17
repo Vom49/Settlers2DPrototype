@@ -14,6 +14,7 @@ public class TurnControllerScript : MonoBehaviour
     private bool setupAllPlayersGoneOnce = false;
 
     private int whenWasRobStarted = 1;
+    private int whenWasCardEffectStarted = 1;
 
     [SerializeField] private GameObject nextStepButton;
     [SerializeField] private TMP_Text nextStepButtonText;
@@ -102,6 +103,18 @@ public class TurnControllerScript : MonoBehaviour
                 turnStep++;
             }
         }
+        else if (turnStep == 88) //2nd free road step
+        {
+            turnStep = whenWasCardEffectStarted;
+        }
+        else if (turnStep == 100) //2nd free resource step
+        {
+            turnStep = whenWasCardEffectStarted;
+        }
+        else if (turnStep == 50) //monopoly step
+        {
+            turnStep = whenWasCardEffectStarted;
+        }
         else
         {
             turnStep++;
@@ -109,7 +122,9 @@ public class TurnControllerScript : MonoBehaviour
         //-1, 0 for player 1, then 2 then 3 then 4, repeat
         //proper turn
         TradeControllerScript tradeControl = GameObject.Find("TradeController").GetComponent<TradeControllerScript>();
+        CardControllerScript cControl = GameObject.Find("CardController").GetComponent<CardControllerScript>();
         tradeControl.UpdateTradeTargets();
+        cControl.HideHand();
     }
 
     private void EnableDisableNextStepButton()
@@ -135,6 +150,24 @@ public class TurnControllerScript : MonoBehaviour
     {
         whenWasRobStarted = turnStep;
         turnStep = 66;
+    }
+
+    public void GoToFreeRoads()
+    {
+        whenWasCardEffectStarted = turnStep;
+        turnStep = 87;
+    }
+
+    public void GoToFreeResources()
+    {
+        whenWasCardEffectStarted = turnStep;
+        turnStep = 99;
+    }
+
+    public void GoToMonopoly()
+    {
+        whenWasCardEffectStarted = turnStep;
+        turnStep = 50;
     }
     private void CheckForWin()
     {

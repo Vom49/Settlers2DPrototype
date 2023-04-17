@@ -27,7 +27,15 @@ public class EdgeData : MonoBehaviour
         roadBuilt = true;
         ownerPlayer = tControl.GetActivePlayer();
         edgeSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
-        //tControl.MoveTurnAlong();
+        if (tControl.GetTurnStep() == 3)
+        {
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Brick, -1);
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Lumber, -1);
+        }
+        if (tControl.GetTurnStep() == 0 || tControl.GetTurnStep() == 87 || tControl.GetTurnStep() == 88)
+        {
+            tControl.MoveTurnAlong();
+        }
     }
 
     private void EnableDisableButton()
@@ -52,6 +60,10 @@ public class EdgeData : MonoBehaviour
             {
                 //if setup road step then enable
                 if(tControl.GetTurnStep() == 0)
+                {
+                    return (true);
+                }
+                else if (tControl.GetTurnStep() == 87 || tControl.GetTurnStep() == 88)
                 {
                     return (true);
                 }
