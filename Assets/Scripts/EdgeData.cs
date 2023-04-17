@@ -27,6 +27,11 @@ public class EdgeData : MonoBehaviour
         roadBuilt = true;
         ownerPlayer = tControl.GetActivePlayer();
         edgeSprite.GetComponent<SpriteRenderer>().color = pControl.GetPlayerColor(ownerPlayer);
+        if (tControl.GetTurnStep() == 3)
+        {
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Brick, -1);
+            pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Lumber, -1);
+        }
         if (tControl.GetTurnStep() == 0 || tControl.GetTurnStep() == 87 || tControl.GetTurnStep() == 88)
         {
             tControl.MoveTurnAlong();

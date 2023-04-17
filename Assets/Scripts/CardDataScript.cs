@@ -44,9 +44,7 @@ public class CardDataScript : MonoBehaviour
                 buttonImage.sprite = blankCard;
                 break;
         }
-        CardControllerScript cControl = GameObject.Find("CardController").GetComponent<CardControllerScript>();
-        cControl.HideHand();
-        cardID = 0;
+        
     }
 
     /*
@@ -79,6 +77,9 @@ public class CardDataScript : MonoBehaviour
             default:
                 break;
         }
+        CardControllerScript cControl = GameObject.Find("CardController").GetComponent<CardControllerScript>();
+        cControl.HideHand();
+        cardID = 0;
 
     }
 

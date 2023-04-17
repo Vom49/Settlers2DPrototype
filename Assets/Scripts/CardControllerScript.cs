@@ -11,6 +11,7 @@ public class CardControllerScript : MonoBehaviour
 
     [SerializeField] private GameObject ShowHandButton;
     [SerializeField] private GameObject CardPanel;
+    [SerializeField] private GameObject BuyButton;
     private bool handShowing = false;
 
     [SerializeField] private GameObject ResourceButtons;
@@ -28,6 +29,7 @@ public class CardControllerScript : MonoBehaviour
         }
         EnableDisableHandButton();
         EnableDisableResourceButtons();
+        EnableDisableBuyCardButton();
     }
 
     private void EnableDisableHandButton()
@@ -44,6 +46,21 @@ public class CardControllerScript : MonoBehaviour
             {
                 ShowHandButton.SetActive(false);
             }
+        }
+    }
+
+    private void EnableDisableBuyCardButton()
+    {
+        TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        int activePlayer = tControl.GetActivePlayer();
+        if ((pControl.GetPlayerResource(activePlayer, Resources.Ore) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Grain) >= 1) && (pControl.GetPlayerResource(activePlayer, Resources.Sheep) >= 1))
+        {
+            BuyButton.SetActive(true);
+        }
+        else
+        {
+            BuyButton.SetActive(false);
         }
     }
 
@@ -87,6 +104,7 @@ public class CardControllerScript : MonoBehaviour
     public void AddCardToHand()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         bool findingCard = true;
         int foundCard = 0;
         while (findingCard == true)
@@ -97,6 +115,10 @@ public class CardControllerScript : MonoBehaviour
                 foundCard = deckArray[target];
                 deckArray[target] = 0;
                 findingCard = false;
+                int activePlayer = tControl.GetActivePlayer();
+                pControl.EditPlayerResource(activePlayer, Resources.Ore, -1);
+                pControl.EditPlayerResource(activePlayer, Resources.Sheep, -1);
+                pControl.EditPlayerResource(activePlayer, Resources.Grain, -1);
             }
         }
 
