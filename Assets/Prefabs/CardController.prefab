@@ -2291,6 +2291,7 @@ MonoBehaviour:
   - {fileID: 9179231230481430213}
   ShowHandButton: {fileID: 1222540286158186772}
   CardPanel: {fileID: 7985459882831413424}
+  BuyButton: {fileID: 932015433828090332}
   ResourceButtons: {fileID: 6846104136187737049}
 --- !u!1 &7985459882831413424
 GameObject:
@@ -2309,7 +2310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7985459882831413425
 RectTransform:
   m_ObjectHideFlags: 0
