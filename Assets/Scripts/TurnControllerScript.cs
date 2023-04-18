@@ -25,7 +25,7 @@ public class TurnControllerScript : MonoBehaviour
 
     private void Start()
     {
-        //playerNames = new string[maxPlayers];
+        _maxPlayers = PlayerPrefs.GetInt("MaxPlayers");
     }
 
     private void Update()
