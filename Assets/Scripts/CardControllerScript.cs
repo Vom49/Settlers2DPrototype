@@ -223,7 +223,7 @@ public class CardControllerScript : MonoBehaviour
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
-        for (int i = 1; i <= tControl._maxPlayers; i++)
+        for (int i = 1; i <= pControl.GetMaxPlayers(); i++)
         {
             if (i != tControl.GetActivePlayer())
             {
