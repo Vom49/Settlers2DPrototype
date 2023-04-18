@@ -9,8 +9,6 @@ public class TurnControllerScript : MonoBehaviour
 
     public int turnStep;
 
-    public int _maxPlayers;
-
     private bool setupAllPlayersGoneOnce = false;
 
     private int whenWasRobStarted = 1;
@@ -25,7 +23,6 @@ public class TurnControllerScript : MonoBehaviour
 
     private void Start()
     {
-        _maxPlayers = PlayerPrefs.GetInt("MaxPlayers");
     }
 
     private void Update()
@@ -35,9 +32,10 @@ public class TurnControllerScript : MonoBehaviour
     }
     void PassPlayerTurn()
     {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         //check for win
         activePlayer++;
-        if (activePlayer > _maxPlayers)
+        if (activePlayer > pControl.GetMaxPlayers())
         {
             activePlayer = 1;
         }
@@ -63,6 +61,7 @@ public class TurnControllerScript : MonoBehaviour
     //develoment cards can be played at any time after the dice roll
     public void MoveTurnAlong()
     {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         //setup
         if (turnStep == 0)
         {
@@ -73,7 +72,7 @@ public class TurnControllerScript : MonoBehaviour
             else if (setupAllPlayersGoneOnce == false)
             {
                 turnStep = -1;
-                if (activePlayer >= _maxPlayers)
+                if (activePlayer >= pControl.GetMaxPlayers())
                 {
                     setupAllPlayersGoneOnce = true;
                 }
