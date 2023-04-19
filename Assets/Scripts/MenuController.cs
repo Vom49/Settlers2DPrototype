@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -181,5 +182,8 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetString("PlayerName4", playerNameField4.text);
             PlayerPrefs.SetInt("PlayerAI4", pAI4);
         }
+        SceneManager.LoadScene(1);
+
+
     }
 }
