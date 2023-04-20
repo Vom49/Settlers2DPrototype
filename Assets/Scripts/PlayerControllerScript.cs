@@ -110,4 +110,17 @@ public class PlayerControllerScript : MonoBehaviour
     {
         return (maxPlayers);
     }
+
+    public void ChangeLargestArmy(int playerNumAdd, int playerNumRemove)
+    {
+        PlayerDataScript addP = GetPlayerObj(playerNumAdd).GetComponent <PlayerDataScript>();
+        EditPlayerResource(playerNumAdd, Resources.VictoryPoints, 2);
+        addP.ShowLargeArmy();
+        if (playerNumRemove != 0)
+        {
+            PlayerDataScript removeP = GetPlayerObj(playerNumRemove).GetComponent<PlayerDataScript>();
+            EditPlayerResource(playerNumRemove, Resources.VictoryPoints, -2);
+            removeP.HideLargeArmy();
+        }
+    }
 }

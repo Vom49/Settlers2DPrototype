@@ -14,6 +14,8 @@ public class TurnControllerScript : MonoBehaviour
     private int whenWasRobStarted = 1;
     private int whenWasCardEffectStarted = 1;
 
+    private int largestArmy = 0;
+
     [SerializeField] private GameObject nextStepButton;
     [SerializeField] private TMP_Text nextStepButtonText;
 
@@ -91,6 +93,7 @@ public class TurnControllerScript : MonoBehaviour
         {
             //check for win
             turnStep = 1;
+            LargestArmyCheck();
             CheckForWin();
             PassPlayerTurn();
         }
@@ -187,5 +190,25 @@ public class TurnControllerScript : MonoBehaviour
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         playerNameText.color = pControl.GetPlayerColor(activePlayer);
         playerNameText.text = pControl.GetPlayerName(activePlayer);
+    }
+
+    private void LargestArmyCheck()
+    {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        int largetArmyPlayer = 0;
+        int largetArmyCount = 0;
+        for (int i = 1; i < pControl.GetMaxPlayers() + 1; i++)
+        {
+            if (pControl.GetPlayerResource(i, Resources.Knights) > largetArmyCount)
+            {
+                largetArmyCount = pControl.GetPlayerResource(i, Resources.Knights);
+                largetArmyPlayer = i;
+            }
+        }
+        if (largetArmyCount >= 3 && largetArmyPlayer != largestArmy) //does not repeat if the result has not changed
+        {
+            pControl.ChangeLargestArmy(largetArmyPlayer, largestArmy);
+            largestArmy = largetArmyPlayer;
+        }
     }
 }

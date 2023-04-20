@@ -93,6 +93,8 @@ public class CardDataScript : MonoBehaviour
     private void KnightPointCard()
     {
         TurnControllerScript tControl = GameObject.Find("TurnController").GetComponent<TurnControllerScript>();
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        pControl.EditPlayerResource(tControl.GetActivePlayer(), Resources.Knights, 1);
         tControl.GoToRobbing();
     }
     private void FreeRoadsCard()

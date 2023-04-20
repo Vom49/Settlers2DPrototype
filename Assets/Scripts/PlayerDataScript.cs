@@ -18,6 +18,9 @@ public class PlayerDataScript : MonoBehaviour
 
     [SerializeField] TMP_Text _playerName;
 
+    [SerializeField] GameObject LargestArmyIcon;
+    [SerializeField] GameObject LongestRoadIcon;
+
     private void Start()
     {
         ResourceDict.Add(Resources.Brick, 0);
@@ -26,6 +29,7 @@ public class PlayerDataScript : MonoBehaviour
         ResourceDict.Add(Resources.Grain, 0);
         ResourceDict.Add(Resources.Sheep, 0);
         ResourceDict.Add(Resources.VictoryPoints, 0);
+        ResourceDict.Add(Resources.Knights, 0);
     }
     public int FindResourceAmount(Resources tResource)
     {
@@ -63,5 +67,22 @@ public class PlayerDataScript : MonoBehaviour
     {
         _playerName.text = pName;
         _playerName.color = pColor;
+    }
+
+    public void ShowLargeArmy()
+    {
+        LargestArmyIcon.SetActive(true);
+    }
+    public void HideLargeArmy()
+    {
+        LargestArmyIcon.SetActive(false);
+    }
+    public void ShowLongestRoad()
+    {
+        LongestRoadIcon.SetActive(true);
+    }
+    public void HideLongestRoad()
+    {
+        LongestRoadIcon.SetActive(false);
     }
 }
