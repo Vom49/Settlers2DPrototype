@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PlayerPrefab: {fileID: 4080996845465261403, guid: 5b68352cbe6ddce49b5b4341e414cd08, type: 3}
   maxPlayers: 0
+  TESTINGMODE: 1
 --- !u!4 &36420382
 Transform:
   m_ObjectHideFlags: 0
@@ -682,9 +683,17 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 7985459881993475609, guid: e028e2565cf1ae74bb9cf38017a1c5c3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7985459882711972092, guid: e028e2565cf1ae74bb9cf38017a1c5c3, type: 3}
       propertyPath: m_Name
       value: CardController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7985459882711972092, guid: e028e2565cf1ae74bb9cf38017a1c5c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985459882711972093, guid: e028e2565cf1ae74bb9cf38017a1c5c3, type: 3}
       propertyPath: m_RootOrder

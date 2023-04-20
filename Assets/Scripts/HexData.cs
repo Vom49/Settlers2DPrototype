@@ -11,7 +11,8 @@ public enum Resources
     Ore,
     Grain,
     Sheep,
-    VictoryPoints
+    VictoryPoints,
+    Knights
 }
 
 public class HexData : MonoBehaviour

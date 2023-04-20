@@ -9,12 +9,12 @@ public class TurnControllerScript : MonoBehaviour
 
     public int turnStep;
 
-    public int _maxPlayers;
-
     private bool setupAllPlayersGoneOnce = false;
 
     private int whenWasRobStarted = 1;
     private int whenWasCardEffectStarted = 1;
+
+    private int largestArmy = 0;
 
     [SerializeField] private GameObject nextStepButton;
     [SerializeField] private TMP_Text nextStepButtonText;
@@ -25,7 +25,6 @@ public class TurnControllerScript : MonoBehaviour
 
     private void Start()
     {
-        //playerNames = new string[maxPlayers];
     }
 
     private void Update()
@@ -35,9 +34,10 @@ public class TurnControllerScript : MonoBehaviour
     }
     void PassPlayerTurn()
     {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         //check for win
         activePlayer++;
-        if (activePlayer > _maxPlayers)
+        if (activePlayer > pControl.GetMaxPlayers())
         {
             activePlayer = 1;
         }
@@ -63,6 +63,7 @@ public class TurnControllerScript : MonoBehaviour
     //develoment cards can be played at any time after the dice roll
     public void MoveTurnAlong()
     {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         //setup
         if (turnStep == 0)
         {
@@ -73,7 +74,7 @@ public class TurnControllerScript : MonoBehaviour
             else if (setupAllPlayersGoneOnce == false)
             {
                 turnStep = -1;
-                if (activePlayer >= _maxPlayers)
+                if (activePlayer >= pControl.GetMaxPlayers())
                 {
                     setupAllPlayersGoneOnce = true;
                 }
@@ -92,6 +93,7 @@ public class TurnControllerScript : MonoBehaviour
         {
             //check for win
             turnStep = 1;
+            LargestArmyCheck();
             CheckForWin();
             PassPlayerTurn();
         }
@@ -188,5 +190,25 @@ public class TurnControllerScript : MonoBehaviour
         PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
         playerNameText.color = pControl.GetPlayerColor(activePlayer);
         playerNameText.text = pControl.GetPlayerName(activePlayer);
+    }
+
+    private void LargestArmyCheck()
+    {
+        PlayerControllerScript pControl = GameObject.Find("PlayerController").GetComponent<PlayerControllerScript>();
+        int largetArmyPlayer = 0;
+        int largetArmyCount = 0;
+        for (int i = 1; i < pControl.GetMaxPlayers() + 1; i++)
+        {
+            if (pControl.GetPlayerResource(i, Resources.Knights) > largetArmyCount)
+            {
+                largetArmyCount = pControl.GetPlayerResource(i, Resources.Knights);
+                largetArmyPlayer = i;
+            }
+        }
+        if (largetArmyCount >= 3 && largetArmyPlayer != largestArmy) //does not repeat if the result has not changed
+        {
+            pControl.ChangeLargestArmy(largetArmyPlayer, largestArmy);
+            largestArmy = largetArmyPlayer;
+        }
     }
 }

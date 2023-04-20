@@ -9,26 +9,62 @@ public class PlayerControllerScript : MonoBehaviour
     private GameObject[] playerObjs;
     private string[] playerNames;
     private Color[] playerColors;
+    private bool[] playerIsAI;
     public int maxPlayers;
+    [SerializeField] bool TESTINGMODE;
 
     private void Start()
     {
-        maxPlayers = GameObject.Find("TurnController").GetComponent<TurnControllerScript>()._maxPlayers;
+        float yOffset = -1.6f;
+        if (TESTINGMODE == false)
+        {
+            maxPlayers = PlayerPrefs.GetInt("MaxPlayers");
+        } else
+        {
+            maxPlayers = 4;
+        }
+            
+
+
         playerObjs = new GameObject[maxPlayers + 1];
         playerNames = new string[maxPlayers + 1];
         playerColors = new Color[maxPlayers + 1];
-        float yOffset = -1.6f;
-        
-        playerNames[1] = "Tim";
-        playerNames[2] = "Jim";
-        playerNames[3] = "Bim";
-        playerNames[4] = "Lim";
-        
-        playerColors[1] = Color.red;
-        playerColors[2] = Color.green;
-        playerColors[3] = Color.blue;
-        playerColors[4] = Color.yellow;
+        playerIsAI = new bool[maxPlayers + 1];
 
+        if (TESTINGMODE == false)
+        {
+            playerNames[1] = PlayerPrefs.GetString("PlayerName1");
+            playerColors[1] = new Color(PlayerPrefs.GetInt("PlayerColor1R"), PlayerPrefs.GetInt("PlayerColor1G"), PlayerPrefs.GetInt("PlayerColor1B"));
+            if (PlayerPrefs.GetInt("PlayerAI1") == 1) { playerIsAI[1] = true; } else { playerIsAI[1] = false; }
+
+            playerNames[2] = PlayerPrefs.GetString("PlayerName2");
+            playerColors[2] = new Color(PlayerPrefs.GetInt("PlayerColor2R"), PlayerPrefs.GetInt("PlayerColor2G"), PlayerPrefs.GetInt("PlayerColor2B"));
+            if (PlayerPrefs.GetInt("PlayerAI2") == 1) { playerIsAI[2] = true; } else { playerIsAI[2] = false; }
+
+            playerNames[3] = PlayerPrefs.GetString("PlayerName3");
+            playerColors[3] = new Color(PlayerPrefs.GetInt("PlayerColor3R"), PlayerPrefs.GetInt("PlayerColor3G"), PlayerPrefs.GetInt("PlayerColor3B"));
+            if (PlayerPrefs.GetInt("PlayerAI3") == 1) { playerIsAI[3] = true; } else { playerIsAI[3] = false; }
+
+            if (maxPlayers == 4)
+            {
+                playerNames[4] = PlayerPrefs.GetString("PlayerName4");
+                playerColors[4] = new Color(PlayerPrefs.GetInt("PlayerColor4R"), PlayerPrefs.GetInt("PlayerColor4G"), PlayerPrefs.GetInt("PlayerColor4B"));
+                if (PlayerPrefs.GetInt("PlayerAI4") == 1) { playerIsAI[4] = true; } else { playerIsAI[4] = false; }
+            }
+        }
+        else
+        {
+            playerNames[1] = "Tim";
+            playerNames[2] = "Jim";
+            playerNames[3] = "Bim";
+            playerNames[4] = "Lim";
+
+            playerColors[1] = Color.red;
+            playerColors[2] = Color.blue;
+            playerColors[3] = Color.green;
+            playerColors[4] = Color.yellow;
+        }
+        
         //create the player objects
         for (int i = 1; i <= maxPlayers; i++)
         {
@@ -73,5 +109,18 @@ public class PlayerControllerScript : MonoBehaviour
     public int GetMaxPlayers()
     {
         return (maxPlayers);
+    }
+
+    public void ChangeLargestArmy(int playerNumAdd, int playerNumRemove)
+    {
+        PlayerDataScript addP = GetPlayerObj(playerNumAdd).GetComponent <PlayerDataScript>();
+        EditPlayerResource(playerNumAdd, Resources.VictoryPoints, 2);
+        addP.ShowLargeArmy();
+        if (playerNumRemove != 0)
+        {
+            PlayerDataScript removeP = GetPlayerObj(playerNumRemove).GetComponent<PlayerDataScript>();
+            EditPlayerResource(playerNumRemove, Resources.VictoryPoints, -2);
+            removeP.HideLargeArmy();
+        }
     }
 }
