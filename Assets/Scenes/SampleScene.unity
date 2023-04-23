@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _PlayerPrefab: {fileID: 4080996845465261403, guid: 5b68352cbe6ddce49b5b4341e414cd08, type: 3}
   maxPlayers: 0
-  TESTINGMODE: 1
+  TESTINGMODE: 0
 --- !u!4 &36420382
 Transform:
   m_ObjectHideFlags: 0

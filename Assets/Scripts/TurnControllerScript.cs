@@ -94,6 +94,7 @@ public class TurnControllerScript : MonoBehaviour
             //check for win
             turnStep = 1;
             LargestArmyCheck();
+            LongestRoadCheck();
             CheckForWin();
             PassPlayerTurn();
         }
@@ -210,5 +211,9 @@ public class TurnControllerScript : MonoBehaviour
             pControl.ChangeLargestArmy(largetArmyPlayer, largestArmy);
             largestArmy = largetArmyPlayer;
         }
+    }
+    private void LongestRoadCheck()
+    {
+
     }
 }

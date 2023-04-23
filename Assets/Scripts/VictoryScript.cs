@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class VictoryScript : MonoBehaviour
@@ -9,7 +10,7 @@ public class VictoryScript : MonoBehaviour
 
     public void GoToMenu()
     {
-
+        SceneManager.LoadScene(0);
     }
 
     public void setPlayerNameToActivePlayer()
