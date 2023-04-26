@@ -221,21 +221,21 @@ public class TradeControllerScript : MonoBehaviour
         //lumber
         pControl.EditPlayerResource(tControl.activePlayer, Resources.Lumber, LumberDial.GetDialValue());
         pControl.EditPlayerResource(currentTradeTarget, Resources.Lumber, -(LumberDial.GetDialValue()));
-        BrickDial.ResetValue();
+        LumberDial.ResetValue();
 
         //ore
         pControl.EditPlayerResource(tControl.activePlayer, Resources.Ore, OreDial.GetDialValue());
         pControl.EditPlayerResource(currentTradeTarget, Resources.Ore, -(OreDial.GetDialValue()));
-        BrickDial.ResetValue();
+        OreDial.ResetValue();
 
         //grain
         pControl.EditPlayerResource(tControl.activePlayer, Resources.Grain, GrainDial.GetDialValue());
         pControl.EditPlayerResource(currentTradeTarget, Resources.Grain, -(GrainDial.GetDialValue()));
-        BrickDial.ResetValue();
+        GrainDial.ResetValue();
 
         //sheep
         pControl.EditPlayerResource(tControl.activePlayer, Resources.Sheep, SheepDial.GetDialValue());
         pControl.EditPlayerResource(currentTradeTarget, Resources.Sheep, -(SheepDial.GetDialValue()));
-        BrickDial.ResetValue();
+        SheepDial.ResetValue();
     }
 }
